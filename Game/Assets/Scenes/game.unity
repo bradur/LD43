@@ -196,7 +196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sounds: []
-  musicMuted: 0
+  musicMuted: 1
   musicSource: {fileID: 608372806}
 --- !u!1 &206565057
 GameObject:

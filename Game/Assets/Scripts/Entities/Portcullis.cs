@@ -26,8 +26,11 @@ public class Portcullis : MonoBehaviour
     private int yPos;
     private MapGrid mapGrid;
 
+    private GridObject gridObject;
+
     public void Init(int x, int y, MapGrid mapGrid, TiledSharp.PropertyDict properties)
     {
+        gridObject = GetComponent<GridObject>();
         this.mapGrid = mapGrid;
         xPos = x;
         yPos = y;
@@ -45,11 +48,12 @@ public class Portcullis : MonoBehaviour
     {
         if (switchedOn)
         {
-            foreach(GridObject gridObject in mapGrid.Get(xPos, yPos))
+            foreach(GridObject mapGridObject in mapGrid.Get(xPos, yPos))
             {
-                gridObject.AnimateAndKill();
+                mapGridObject.AnimateAndKill();
             }
         }
+        gridObject.SetCollisionType(switchedOn ? CollisionType.Wall : CollisionType.Floor);
         boxCollider2D.enabled = switchedOn;
         spriteRenderer.sprite = switchedOn ? spriteOn : spriteOff;
     }

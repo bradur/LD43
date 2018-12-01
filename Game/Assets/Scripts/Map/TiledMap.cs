@@ -74,7 +74,7 @@ public class TiledMap : MonoBehaviour
     private void SpawnTile(int x, int y, MapObject mapObject, PropertyDict properties)
     {
         GridObject spawnedObject = SpawnObject(x, y, mapObject, properties);
-        if (mapObject.prefab.CollisionType == CollisionType.Wall || mapObject.prefab.CollisionType == CollisionType.Pickup)
+        if (mapObject.prefab.CollisionType != CollisionType.Floor && mapObject.prefab.CollisionType != CollisionType.None)
         {
             mapGrid.AddObject(spawnedObject, x, y);
         }

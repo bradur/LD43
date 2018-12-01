@@ -36,6 +36,9 @@ public class PlayerMovement : MonoBehaviour
     private int characterId = -1;
     public int CharacterId { get { return characterId; } }
 
+    [SerializeField]
+    private bool canJump = false;
+
     private bool selectedCharacter = false;
 
     private int xPos;
@@ -138,26 +141,35 @@ public class PlayerMovement : MonoBehaviour
         yPos = newPosY;
     }
 
+    private bool isJumping = false;
+    private bool physicallyJumping = false;
+
     public bool AttemptToMove(MoveDirection moveDirection, MoveAxis moveAxis)
     {
-        if (!physicallyMoving)
+        //moving = true;
+        int direction = moveDirection == MoveDirection.Forward ? 1 : -1;
+        int axis = moveAxis == MoveAxis.Horizontal ? 0 : 1;
+        int newPosX = xPos + (axis == 0 ? direction : 0);
+        int newPosY = yPos + (axis == 1 ? direction : 0);
+        if (!physicallyMoving && mapGrid.CanMoveIntoPosition(newPosX, newPosY))
         {
-            //moving = true;
-            int direction = moveDirection == MoveDirection.Forward ? 1 : -1;
-            int axis = moveAxis == MoveAxis.Horizontal ? 0 : 1;
-            int newPosX = xPos + (axis == 0 ? direction : 0);
-            int newPosY = yPos + (axis == 1 ? direction : 0);
-            if (mapGrid.CanMoveIntoPosition(newPosX, newPosY))
+            MoveToPosition(newPosX, newPosY);
+            foreach (GridObject gridObject in mapGrid.Get(xPos, yPos))
             {
-                MoveToPosition(newPosX, newPosY);
-                foreach (GridObject gridObject in mapGrid.Get(xPos, yPos))
+                if (gridObject.CollisionType == CollisionType.Pickup)
                 {
-                    if (gridObject.CollisionType == CollisionType.Pickup)
-                    {
-                        gridObject.GetComponent<PickupObject>().Pickup();
-                    }
+                    gridObject.GetComponent<PickupObject>().Pickup();
                 }
-                return true;
+            }
+            return true;
+        } else if (canJump) {
+            JumpableGap gap = mapGrid.GetSpecificObject<JumpableGap>(newPosX, newPosY);
+            Debug.Log(string.Format("Gap: {0}", gap));
+            if (gap != null) {
+                newPosX = newPosX + (axis == 0 ? direction : 0);
+                newPosY = newPosY + (axis == 1 ? direction : 0);
+                Debug.Log(string.Format("Jump to: [x: {0}, y: {1}]", newPosX, newPosY));
+                MoveToPosition(newPosX, newPosY);
             }
         }
         return false;

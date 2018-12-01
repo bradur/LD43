@@ -94,7 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07615d64e0252ea42ad05e558581776b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveInterval: 0.1
+  canJump: 1
 --- !u!114 &114968016077908570
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -106,6 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b897f6188e0e5b948940099beb3851cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collisionType: 0
   killable: 1
 --- !u!212 &212080358020386500
 SpriteRenderer:

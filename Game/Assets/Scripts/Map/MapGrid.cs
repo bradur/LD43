@@ -86,7 +86,7 @@ public class MapGrid : MonoBehaviour
                     "Checking [x: {0}, y: {1}] for movement blocking objects: {2} found.",
                     x, y, gridObject.CollisionType
                 ));
-                if (gridObject.CollisionType == CollisionType.Wall)
+                if (gridObject.CollisionType == CollisionType.Wall || gridObject.CollisionType == CollisionType.Gap)
                 {
                     noWalls = false;
                     break;
@@ -95,6 +95,17 @@ public class MapGrid : MonoBehaviour
             return noWalls;
         }
         return false;
+    }
+
+    public T GetSpecificObject<T>(int x, int y) {
+        T specificObject = default(T);
+        foreach(GridObject gridObject in Get(x, y)) {
+            specificObject = gridObject.GetComponent<T>();
+            if (specificObject != null) {
+                break;
+            }
+        }
+        return specificObject;
     }
 
     public List<GridObject> GetAllWithActivationId(int activationId)

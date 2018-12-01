@@ -11,7 +11,8 @@ public enum CollisionType
     Floor,
     Wall,
     Pickup,
-    Switch
+    Switch,
+    Gap
 }
 
 public class GridObject : MonoBehaviour
@@ -50,6 +51,10 @@ public class GridObject : MonoBehaviour
             switchObject.Activate();
         }
 
+    }
+
+    public void SetCollisionType(CollisionType collisionType) {
+        this.collisionType = collisionType;
     }
 
     public void AnimateAndKill()
