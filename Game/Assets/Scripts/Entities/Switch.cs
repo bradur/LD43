@@ -40,17 +40,17 @@ public class Switch : MonoBehaviour {
         ProcessActivation();
     }
 
+    
+
     private void ProcessActivation()
     {
-        if (activated)
+        foreach (GridObject gridObject in mapGrid.GetAllWithActivationId(activationId))
         {
-            foreach (GridObject gridObject in mapGrid.GetAllWithActivationId(activationId))
+            //Debug.Log(string.Format("Found portcullis {0} with activationId {1}.", gridObject, activationId));
+            Portcullis portCullis = gridObject.GetComponent<Portcullis>();
+            if (portCullis != null)
             {
-                Portcullis portCullis = gridObject.GetComponent<Portcullis>();
-                if (portCullis != null)
-                {
-                    portCullis.Switch();
-                }
+                portCullis.Switch();
             }
         }
         spriteRenderer.sprite = activated ? spriteOn : spriteOff;

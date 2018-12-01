@@ -5,6 +5,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 
 public class PlayerCharacterManager : MonoBehaviour
 {
@@ -13,10 +14,14 @@ public class PlayerCharacterManager : MonoBehaviour
     [SerializeField]
     private float movementInterval = 0.05f;
 
+
+    [SerializeField]
+    private float distanceToStopLerp = 0.1f;
+
     private UIManager uiManager;
 
     [SerializeField]
-    private FollowCamera followCamera;
+    private CinemachineVirtualCamera virtualCamera;
 
     private void Start()
     {
@@ -25,7 +30,7 @@ public class PlayerCharacterManager : MonoBehaviour
 
     public void AddCharacter(PlayerMovement character)
     {
-        character.SetMovementInterval(movementInterval);
+        character.SetOptions(movementInterval, distanceToStopLerp);
         characters.Add(character);
         uiManager.AddCharacter(character);
     }
@@ -41,11 +46,9 @@ public class PlayerCharacterManager : MonoBehaviour
                 if (character.CharacterId == characterId)
                 {
                     selectedCharacter = character;
-                    Debug.Log(uiManager);
-                    Debug.Log(character);
                     uiManager.SelectCharacter(character.CharacterId);
                     character.Select();
-                    followCamera.SetTarget(selectedCharacter.transform);
+                    virtualCamera.Follow = selectedCharacter.transform;
                 }
                 else
                 {

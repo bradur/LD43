@@ -38,7 +38,6 @@ public class GameManager : MonoBehaviour {
 
     public UIManager GetUIManager()
     {
-        Debug.Log(uiManager);
         return uiManager;
     }
 

@@ -10,7 +10,8 @@ public enum CollisionType
     None,
     Floor,
     Wall,
-    Pickup
+    Pickup,
+    Switch
 }
 
 public class GridObject : MonoBehaviour
@@ -30,6 +31,7 @@ public class GridObject : MonoBehaviour
     public void Init(int x, int y, MapGrid mapGrid, TiledSharp.PropertyDict properties)
     {
         animator = GetComponent<Animator>();
+        activationId = Tools.IntParseFast(Tools.GetProperty(properties, "activationId"));
         foreach (Portcullis portcullis in GetComponents<Portcullis>()) {
             portcullis.Init(x, y, mapGrid, properties);
         }
@@ -40,6 +42,14 @@ public class GridObject : MonoBehaviour
         {
             playerMovement.Init(x, y, mapGrid, properties);
         }
+    }
+
+    public void Interact() {
+
+        foreach(Switch switchObject in GetComponents<Switch>()) {
+            switchObject.Activate();
+        }
+
     }
 
     public void AnimateAndKill()

@@ -100,12 +100,15 @@ public class MapGrid : MonoBehaviour
     public List<GridObject> GetAllWithActivationId(int activationId)
     {
         List<GridObject> gridObjects = new List<GridObject>();
-        for (int i = 0; i <= height; i += 1)
+        for (int i = 0; i < height; i += 1)
         {
-            for (int j = 0; j <= width; j += 1)
+            for (int j = 0; j < width; j += 1)
             {
                 foreach(GridObject gridObject in Get(j, i))
                 {
+                    Log(string.Format("GridObject '{0}' activationId: {1}. Looking for: {2}",
+                        gridObject, gridObject.ActivationId, activationId
+                    ));
                     if (gridObject.ActivationId == activationId)
                     {
                         gridObjects.Add(gridObject);

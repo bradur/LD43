@@ -13,7 +13,7 @@ public enum Action
     CloseMenu,
     OpenMenu,
     Jump,
-    CreateLoopArea,
+    InteractWithObject,
     NextLevel,
     MoveUp,
     MoveRight,

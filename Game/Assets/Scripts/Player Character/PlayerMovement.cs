@@ -30,6 +30,9 @@ public class PlayerMovement : MonoBehaviour
 
     private float tileSize = 1f;
 
+    float currentLerpTime = 0f;
+    float lerpTime = 1f;
+
     private int characterId = -1;
     public int CharacterId { get { return characterId; } }
 
@@ -38,6 +41,9 @@ public class PlayerMovement : MonoBehaviour
     private int xPos;
     private int yPos;
     private MapGrid mapGrid;
+
+    private float distanceToStopLerp;
+
     public void Init(int x, int y, MapGrid mapGrid, TiledSharp.PropertyDict properties)
     {
         characterId = Tools.IntParseFast(Tools.GetProperty(properties, "characterId"));
@@ -46,10 +52,12 @@ public class PlayerMovement : MonoBehaviour
         xPos = x;
         yPos = y;
         this.mapGrid = mapGrid;
+        lerpTime = moveInterval;
     }
 
-    public void SetMovementInterval(float interval)
+    public void SetOptions(float interval, float distanceToStopLerp)
     {
+        this.distanceToStopLerp = distanceToStopLerp;
         moveInterval = interval;
     }
 
@@ -57,24 +65,30 @@ public class PlayerMovement : MonoBehaviour
     {
         if (selectedCharacter)
         {
-            if (KeyManager.main.GetKeyDown(Action.MoveUp))
+            if (KeyManager.main.GetKey(Action.MoveUp))
             {
                 AttemptToMove(MoveDirection.Forward, MoveAxis.Vertical);
             }
-            else if (KeyManager.main.GetKeyDown(Action.MoveRight))
+            else if (KeyManager.main.GetKey(Action.MoveRight))
             {
                 AttemptToMove(MoveDirection.Forward, MoveAxis.Horizontal);
             }
-            else if (KeyManager.main.GetKeyDown(Action.MoveDown))
+            else if (KeyManager.main.GetKey(Action.MoveDown))
             {
                 AttemptToMove(MoveDirection.Backward, MoveAxis.Vertical);
             }
-            else if (KeyManager.main.GetKeyDown(Action.MoveLeft))
+            else if (KeyManager.main.GetKey(Action.MoveLeft))
             {
                 AttemptToMove(MoveDirection.Backward, MoveAxis.Horizontal);
             }
+            if (KeyManager.main.GetKeyDown(Action.InteractWithObject)) {
+                foreach(GridObject gridObject in mapGrid.Get(xPos, yPos)) {
+                    gridObject.Interact();
+                }
+            }
         }
-        if (moving)
+
+        /*if (moving)
         {
             moveTimer += Time.deltaTime;
             if (moveTimer > moveInterval)
@@ -82,15 +96,25 @@ public class PlayerMovement : MonoBehaviour
                 moving = false;
                 moveTimer = 0f;
             }
-        }
+        }*/
     }
 
-    void FixedUpdate ()
+    void LateUpdate ()
     {
         if (physicallyMoving)
         {
-            transform.position = targetPosition;
-            physicallyMoving = false;
+            currentLerpTime += Time.deltaTime;
+            if (currentLerpTime > lerpTime) {
+                currentLerpTime = lerpTime;
+            }
+ 
+            float percentage = currentLerpTime / lerpTime;
+            transform.position = Vector3.Lerp(transform.position, targetPosition, percentage);
+            if (Vector3.Distance(targetPosition, transform.position) < distanceToStopLerp) {
+                transform.position = targetPosition;
+                currentLerpTime = 0f;
+                physicallyMoving = false;
+            }
         }
     }
 
@@ -116,23 +140,23 @@ public class PlayerMovement : MonoBehaviour
 
     public bool AttemptToMove(MoveDirection moveDirection, MoveAxis moveAxis)
     {
-        if (!moving)
+        if (!physicallyMoving)
         {
-            moving = true;
+            //moving = true;
             int direction = moveDirection == MoveDirection.Forward ? 1 : -1;
             int axis = moveAxis == MoveAxis.Horizontal ? 0 : 1;
             int newPosX = xPos + (axis == 0 ? direction : 0);
             int newPosY = yPos + (axis == 1 ? direction : 0);
             if (mapGrid.CanMoveIntoPosition(newPosX, newPosY))
             {
-                foreach (GridObject gridObject in mapGrid.Get(newPosX, newPosY))
+                MoveToPosition(newPosX, newPosY);
+                foreach (GridObject gridObject in mapGrid.Get(xPos, yPos))
                 {
                     if (gridObject.CollisionType == CollisionType.Pickup)
                     {
                         gridObject.GetComponent<PickupObject>().Pickup();
                     }
                 }
-                MoveToPosition(newPosX, newPosY);
                 return true;
             }
         }
