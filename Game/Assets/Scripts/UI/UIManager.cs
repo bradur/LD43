@@ -9,10 +9,16 @@ using System.Collections;
 public class UIManager : MonoBehaviour {
 
     [SerializeField]
-    private Text txtComponent;
-    [SerializeField]
-    private Color colorVariable;
-    [SerializeField]
-    private Image imgComponent;
+    private UICharacterManager uiCharacterManager;
+
+    public void AddCharacter(PlayerMovement playerMovement)
+    {
+        uiCharacterManager.AddCharacter(playerMovement);
+    }
+
+    public void SelectCharacter(int characterId)
+    {
+        uiCharacterManager.SelectCharacter(characterId);
+    }
 
 }

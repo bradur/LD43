@@ -21,7 +21,7 @@ enum LayerType
 public class MapObject : System.Object
 {
     public string name;
-    public GameObject prefab;
+    public GridObject prefab;
     public string containerTag;
 }
 
@@ -44,18 +44,12 @@ public class LevelLoader : MonoBehaviour
     }
 
     [SerializeField]
-    private AudioSource normalMusic;
-
-    [SerializeField]
-    private AudioSource secretMusic;
-
-    [SerializeField]
     private TiledMap tiledMapPrefab;
 
     [SerializeField]
     private MapGrid mapGrid;
 
-    
+
     [SerializeField]
     private LevelList levelList;
 
@@ -63,11 +57,14 @@ public class LevelLoader : MonoBehaviour
     private MapObjectList mapObjectList;
 
     [SerializeField]
+    private FollowCamera followCamera;
+
+    [SerializeField]
     private int nextLevel = 0;
 
     void Start()
     {
-
+        Init(levelList.Levels[nextLevel]);
     }
 
     void Update()
@@ -84,7 +81,7 @@ public class LevelLoader : MonoBehaviour
         //Time.timeScale = 1f;
         if (nextLevel < levelList.Levels.Count)
         {
-            Init(levelList.Levels[nextLevel]);
+            //Init(levelList.Levels[nextLevel]);
         }
         else
         {
@@ -121,6 +118,8 @@ public class LevelLoader : MonoBehaviour
         Debug.Log(string.Format("Opening {0}", mapFile.name));
         TiledMap tiledMap = Instantiate(tiledMapPrefab);
         tiledMap.Init(map, this, mapGrid);
+        PlayerCharacterManager characterManager = GameManager.main.GetCharacterManager();
+        characterManager.SelectCharacter(1);
     }
 
 }

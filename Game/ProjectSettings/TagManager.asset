@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - EntityContainer
+  - GameManager
+  - LevelLoader
+  - GroundContainer
+  - PlayerContainer
+  - KeyManager
   layers:
   - Default
   - TransparentFX

@@ -6,15 +6,16 @@ using System.Collections.Generic;
 public enum SoundType
 {
     None,
-    Teleport,
-    SecretEnd,
     End,
-    OpenDoor,
     Pickup,
-    DestroyBlock
+    PortcullisOn,
+    PortcullisOff,
+    SwitchOn,
+    SwitchOff
 }
 
-public class SoundManager : MonoBehaviour {
+public class SoundManager : MonoBehaviour
+{
 
     public static SoundManager main;
 
@@ -43,7 +44,8 @@ public class SoundManager : MonoBehaviour {
             {
                 musicSource.Pause();
                 //UIManager.main.ToggleMusic();
-            } else
+            }
+            else
             {
                 musicSource.Play();
             }

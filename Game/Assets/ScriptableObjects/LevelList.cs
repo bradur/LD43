@@ -6,8 +6,9 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-[CreateAssetMenu(fileName="New LevelList", menuName="LevelList")]
-public class LevelList : ScriptableObject {
+[CreateAssetMenu(fileName = "New LevelList", menuName = "LevelList")]
+public class LevelList : ScriptableObject
+{
 
     [SerializeField]
     private string objectName = "ScriptableObject";
@@ -16,9 +17,4 @@ public class LevelList : ScriptableObject {
     [SerializeField]
     private List<TextAsset> levels;
     public List<TextAsset> Levels { get { return levels; } }
-
-    [SerializeField]
-    private List<TextAsset> secretLevels;
-    public List<TextAsset> SecretLevels { get { return secretLevels; } }
-
 }

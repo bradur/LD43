@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c293915d962c46449a1ee9299341dfd, type: 3}
+  m_Name: MapObjectList
+  m_EditorClassIdentifier: 
+  objectName: MapObjectList
+  mapObjects:
+  - name: PortcullisOff
+    prefab: {fileID: 114499701713501918, guid: cb4fc25ed28fede46a6686a7f9f3a352, type: 2}
+    containerTag: EntityContainer
+  - name: PortcullisOn
+    prefab: {fileID: 114422861149931434, guid: cdd433abe74faa04087be59b5d129e88, type: 2}
+    containerTag: EntityContainer
+  - name: Switch
+    prefab: {fileID: 114646113167448392, guid: 7558717ac53d2164f87b0a7c07899e02, type: 2}
+    containerTag: EntityContainer
+  - name: End
+    prefab: {fileID: 114839466493256704, guid: c966272989666304cb5f9a7c59969b93, type: 2}
+    containerTag: EntityContainer
+  - name: Floor
+    prefab: {fileID: 114860662204071178, guid: 747bcb71a6e395a4d9ae288620d65359, type: 2}
+    containerTag: GroundContainer
+  - name: Wall
+    prefab: {fileID: 114250217151601538, guid: 52f5056c2bbe7c0498a1c495cc0a755e, type: 2}
+    containerTag: GroundContainer
+  - name: Gap
+    prefab: {fileID: 114327405093386012, guid: 12d11ab356dcc1d408d48343e3bc4f8d, type: 2}
+    containerTag: GroundContainer
+  - name: Player
+    prefab: {fileID: 114968016077908570, guid: 9a3520723fb6bdb4cb847a55527b4de7, type: 2}
+    containerTag: PlayerContainer
+  - name: PlayerJump
+    prefab: {fileID: 114968016077908570, guid: 6d883b7079ce046449f388f8c1ebd277, type: 2}
+    containerTag: PlayerContainer

@@ -11,6 +11,9 @@ public class GameManager : MonoBehaviour {
     public bool GameIsOver { get { return gameOver; } }
 
     [SerializeField]
+    private PlayerCharacterManager characterManager;
+
+    [SerializeField]
     private UIManager uiManager;
 
     void Awake()
@@ -33,6 +36,11 @@ public class GameManager : MonoBehaviour {
         this.mapGrid = mapGrid;
     }
 
+    public UIManager GetUIManager()
+    {
+        Debug.Log(uiManager);
+        return uiManager;
+    }
 
     LevelLoader levelLoader;
     public void SetLevelLoader(LevelLoader levelLoader)
@@ -40,10 +48,10 @@ public class GameManager : MonoBehaviour {
         this.levelLoader = levelLoader;
     }
 
-    public void StopPlayer()
+    /*public void StopPlayer()
     {
         playerMovement.Stop();
-    }
+    }*/
 
     public void LoadNextLevel()
     {
@@ -53,6 +61,11 @@ public class GameManager : MonoBehaviour {
     public MapGrid GetMapGrid()
     {
         return mapGrid;
+    }
+
+    public PlayerCharacterManager GetCharacterManager()
+    {
+        return characterManager;
     }
 
     private PlayerMovement playerMovement;

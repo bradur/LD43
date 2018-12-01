@@ -14,7 +14,15 @@ public enum Action
     OpenMenu,
     Jump,
     CreateLoopArea,
-    NextLevel
+    NextLevel,
+    MoveUp,
+    MoveRight,
+    MoveDown,
+    MoveLeft,
+    CharacterOne,
+    CharacterTwo,
+    CharacterThree,
+    CharacterFour
 }
 
 [System.Serializable]

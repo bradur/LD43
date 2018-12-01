@@ -41,7 +41,7 @@ public class TiledMap : MonoBehaviour
                 {
                     if (tile.Gid != 0)
                     {
-                        SpawnMapObject(tile.X, mapHeight - tile.Y - 1, mapObject);
+                        SpawnTile(tile.X, mapHeight - tile.Y - 1, mapObject, layer.Properties);
                     }
                 }
             }
@@ -60,15 +60,36 @@ public class TiledMap : MonoBehaviour
                 if (mapObject != null)
                 {
                     //Debug.Log(string.Format("Found object {0}", mapObject.name));
-                    SpawnMapObject((int)tmxObject.X / tileSize, (mapHeight) - (int)tmxObject.Y / tileSize, mapObject);
+                    SpawnMapObject(
+                        (int)tmxObject.X / tileSize,
+                        (mapHeight) - (int)tmxObject.Y / tileSize,
+                        mapObject,
+                        tmxObject
+                    );
                 }
             }
         }
     }
 
-    private void SpawnMapObject(int x, int y, MapObject mapObject)
+    private void SpawnTile(int x, int y, MapObject mapObject, PropertyDict properties)
     {
-        GameObject spawnedObject = Instantiate(mapObject.prefab);
+        GridObject spawnedObject = SpawnObject(x, y, mapObject, properties);
+        if (mapObject.prefab.CollisionType == CollisionType.Wall || mapObject.prefab.CollisionType == CollisionType.Pickup)
+        {
+            mapGrid.AddObject(spawnedObject, x, y);
+        }
+    }
+
+    private void SpawnMapObject(int x, int y, MapObject mapObject, TmxObject tmxObject)
+    {
+        GridObject spawnedObject = SpawnObject(x, y, mapObject, tmxObject.Properties);
+        mapGrid.AddObject(spawnedObject, x, y);
+    }
+
+    private GridObject SpawnObject(int x, int y, MapObject mapObject, PropertyDict properties)
+    {
+        GridObject spawnedObject = Instantiate(mapObject.prefab);
+        spawnedObject.Init(x, y, mapGrid, properties);
         GameObject container = GameObject.FindGameObjectWithTag(mapObject.containerTag);
         if (container != null)
         {
@@ -77,10 +98,7 @@ public class TiledMap : MonoBehaviour
         spawnedObject.transform.position = new Vector3(x, y, 0f);
         spawnedObject.name = string.Format("[{0}, {1}] {2} #{3} ", x, y, mapObject.name, spawnedObjects);
         spawnedObjects += 1;
-        if (mapObject.name == "wall" || mapObject.name == "destructiblewall")
-        {
-            mapGrid.AddObject(spawnedObject, x, y);
-        }
+        return spawnedObject;
     }
 
 }
