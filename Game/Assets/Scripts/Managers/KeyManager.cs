@@ -4,6 +4,7 @@
 
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 
 public enum Action
 {
@@ -134,24 +135,26 @@ public class KeyManager : MonoBehaviour
 
     public string GetKeyString(Action action)
     {
+        List<string> keyStrings = new List<string>();
         foreach (GameKey gameKey in gameKeys)
         {
             if (gameKey.action == action)
             {
-                string keyString = gameKey.key.ToString();
+                
                 if (gameKey.key == KeyCode.Return)
                 {
-                    keyString = "Enter";
+                    keyStrings.Add("Enter");
                 }
                 else if (gameKey.key == KeyCode.RightControl)
                 {
-                    keyString = "Right Ctrl";
+                    keyStrings.Add("Right Ctrl");
                 } else if (gameKey.key == KeyCode.Escape) {
-                    keyString = "Esc";
+                    keyStrings.Add("Esc");
+                } else {
+                    keyStrings.Add(gameKey.key.ToString());
                 }
-                return keyString;
             }
         }
-        return "";
+        return string.Join(" / ", keyStrings.ToArray());
     }
 }

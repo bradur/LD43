@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="31" height="9" tilewidth="64" tileheight="64" infinite="0" nextlayerid="46" nextobjectid="88">
+ <tileset firstgid="1" source="../Tilesets/sprites.tsx"/>
+ <layer id="43" name="Floor" width="31" height="9">
+  <properties>
+   <property name="type" value="Floor"/>
+  </properties>
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,1,0,0,0,0,0,0,0,0,0,1,0,0,
+0,0,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0,1,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,1,1,1,1,1,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,1,1,1,1,1,0,
+0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,
+0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="44" name="Wall" width="31" height="9">
+  <properties>
+   <property name="type" value="Wall"/>
+  </properties>
+  <data encoding="csv">
+2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
+2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,2,2,2,2,2,2,2,2,2,2,2,2,2,0,0,0,2,0,2,2,2,2,2,2,2,2,2,0,2,2,
+2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,2,2,2,2,2,2,2,2,2,2,2,2,2,0,0,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
+2,0,0,0,0,0,2,2,2,2,2,2,2,2,0,0,0,2,2,2,2,2,2,2,2,0,0,0,0,0,2,
+2,2,2,2,2,0,2,2,2,2,2,2,2,2,2,0,2,2,2,2,2,2,2,2,2,0,0,0,0,0,2,
+2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2
+</data>
+ </layer>
+ <layer id="45" name="Gap" width="31" height="9">
+  <properties>
+   <property name="type" value="Gap"/>
+  </properties>
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup id="17" name="DoorsAndKeys">
+  <object id="19" name="Door0" type="Door" gid="20" x="512" y="256" width="64" height="64">
+   <properties>
+    <property name="keyId" value="0"/>
+   </properties>
+  </object>
+  <object id="20" name="Key0" type="Key" gid="19" x="1664" y="256" width="64" height="64">
+   <properties>
+    <property name="keyId" value="0"/>
+   </properties>
+  </object>
+  <object id="53" name="Key1" type="Key" gid="19" x="1728" y="384" width="64" height="64">
+   <properties>
+    <property name="keyId" value="1"/>
+   </properties>
+  </object>
+  <object id="54" name="Door1" type="Door" gid="20" x="1344" y="256" width="64" height="64">
+   <properties>
+    <property name="keyId" value="1"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="16" name="Players">
+  <object id="17" type="Player" gid="57" x="960" y="192" width="64" height="64">
+   <properties>
+    <property name="characterId" value="1"/>
+   </properties>
+  </object>
+  <object id="18" type="PlayerJump" gid="57" x="1024" y="256" width="64" height="64">
+   <properties>
+    <property name="characterId" value="2"/>
+   </properties>
+  </object>
+  <object id="28" type="Player" gid="57" x="960" y="320" width="64" height="64">
+   <properties>
+    <property name="characterId" value="3"/>
+   </properties>
+  </object>
+  <object id="46" type="PlayerJump" gid="57" x="896" y="256" width="64" height="64">
+   <properties>
+    <property name="characterId" value="4"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="9" name="Ends">
+  <object id="15" type="End" gid="4" x="1856" y="256" width="64" height="64"/>
+  <object id="16" type="End" gid="4" x="64" y="256" width="64" height="64"/>
+  <object id="85" type="End" gid="4" x="1600" y="256" width="64" height="64"/>
+ </objectgroup>
+ <objectgroup id="7" name="Switches">
+  <properties>
+   <property name="activationId" value="2"/>
+  </properties>
+  <object id="75" name="S1" type="Switch" gid="9" x="896" y="192" width="64" height="64">
+   <properties>
+    <property name="activationId" value="1"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="18" name="PressurePlates">
+  <object id="34" name="PP3" type="PressurePlate" gid="6" x="640" y="512" width="64" height="64">
+   <properties>
+    <property name="activationId" value="3"/>
+   </properties>
+  </object>
+  <object id="72" name="PP3" type="PressurePlate" gid="6" x="64" y="512" width="64" height="64">
+   <properties>
+    <property name="activationId" value="3"/>
+   </properties>
+  </object>
+  <object id="73" name="PP2" type="PressurePlate" gid="6" x="1728" y="256" width="64" height="64">
+   <properties>
+    <property name="activationId" value="2"/>
+   </properties>
+  </object>
+  <object id="74" name="PP2" type="PressurePlate" gid="6" x="64" y="384" width="64" height="64">
+   <properties>
+    <property name="activationId" value="2"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="8" name="Portcullii">
+  <object id="55" name="P2" type="PortcullisOff" gid="11" x="896" y="512" width="64" height="64">
+   <properties>
+    <property name="activationId" value="2"/>
+   </properties>
+  </object>
+  <object id="56" name="P2" type="PortcullisOn" gid="10" x="1792" y="192" width="64" height="64">
+   <properties>
+    <property name="activationId" value="2"/>
+   </properties>
+  </object>
+  <object id="68" name="P3" type="PortcullisOff" gid="11" x="1024" y="512" width="64" height="64">
+   <properties>
+    <property name="activationId" value="3"/>
+   </properties>
+  </object>
+  <object id="69" name="P2" type="PortcullisOn" gid="10" x="1536" y="512" width="64" height="64">
+   <properties>
+    <property name="activationId" value="2"/>
+   </properties>
+  </object>
+  <object id="80" name="P1" type="PortcullisOn" gid="10" x="1216" y="512" width="64" height="64">
+   <properties>
+    <property name="activationId" value="1"/>
+   </properties>
+  </object>
+  <object id="82" name="P1" type="PortcullisOff" gid="11" x="1408" y="512" width="64" height="64">
+   <properties>
+    <property name="activationId" value="1"/>
+   </properties>
+  </object>
+  <object id="83" name="P1" type="PortcullisOn" gid="10" x="512" y="512" width="64" height="64">
+   <properties>
+    <property name="activationId" value="1"/>
+   </properties>
+  </object>
+  <object id="84" name="P1" type="PortcullisOff" gid="11" x="704" y="512" width="64" height="64">
+   <properties>
+    <property name="activationId" value="1"/>
+   </properties>
+  </object>
+  <object id="86" name="P1" type="PortcullisOn" gid="10" x="256" y="256" width="64" height="64">
+   <properties>
+    <property name="activationId" value="1"/>
+   </properties>
+  </object>
+  <object id="87" name="P1" type="PortcullisOff" gid="11" x="128" y="256" width="64" height="64">
+   <properties>
+    <property name="activationId" value="1"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

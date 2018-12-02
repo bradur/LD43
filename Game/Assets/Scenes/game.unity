@@ -1522,6 +1522,10 @@ MonoBehaviour:
     action: 3
   - key: 9
     action: 16
+  - key: 112
+    action: 4
+  - key: 112
+    action: 3
 --- !u!1 &534759965
 GameObject:
   m_ObjectHideFlags: 0
@@ -3046,7 +3050,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Esc
+  m_Text: Esc / P
 --- !u!222 &1074114932
 CanvasRenderer:
   m_ObjectHideFlags: 0

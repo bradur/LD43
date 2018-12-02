@@ -68,14 +68,14 @@
 </data>
  </layer>
  <objectgroup id="16" name="Players">
-  <object id="30" name="P2" type="Player" gid="57" x="192" y="128" width="64" height="64">
-   <properties>
-    <property name="characterId" value="2"/>
-   </properties>
-  </object>
-  <object id="40" name="P1" type="Player" gid="57" x="64" y="128" width="64" height="64">
+  <object id="30" name="P1" type="Player" gid="57" x="64" y="128" width="64" height="64">
    <properties>
     <property name="characterId" value="1"/>
+   </properties>
+  </object>
+  <object id="40" name="P2" type="Player" gid="57" x="192" y="128" width="64" height="64">
+   <properties>
+    <property name="characterId" value="2"/>
    </properties>
   </object>
   <object id="50" name="P3" type="Player" gid="57" x="448" y="128" width="64" height="64">
