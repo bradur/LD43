@@ -23,3 +23,5 @@ MonoBehaviour:
     name: Yellow
   - color: {r: 0.8566667, g: 0.8, b: 1, a: 1}
     name: Red
+  - color: {r: 1, g: 1, b: 1, a: 1}
+    name: Red

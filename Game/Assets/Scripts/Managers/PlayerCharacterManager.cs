@@ -157,6 +157,10 @@ public class PlayerCharacterManager : MonoBehaviour
             {
                 SelectCharacter(4);
             }
+            else if (KeyManager.main.GetKeyDown(Action.CharacterFive))
+            {
+                SelectCharacter(5);
+            }
         }
     }
 }

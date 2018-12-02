@@ -24,7 +24,8 @@ public enum Action
     CharacterTwo,
     CharacterThree,
     CharacterFour,
-    SwitchCharacter
+    SwitchCharacter,
+    CharacterFive
 }
 
 [System.Serializable]

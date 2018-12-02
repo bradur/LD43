@@ -1526,6 +1526,8 @@ MonoBehaviour:
     action: 4
   - key: 112
     action: 3
+  - key: 53
+    action: 17
 --- !u!1 &534759965
 GameObject:
   m_ObjectHideFlags: 0
