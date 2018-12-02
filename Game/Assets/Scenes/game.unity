@@ -1255,7 +1255,7 @@ MonoBehaviour:
   gridObjectColorList: {fileID: 11400000, guid: 69362c84bce7c6d418de0ce06e350a3b,
     type: 2}
   followCamera: {fileID: 0}
-  nextLevel: 2
+  nextLevel: 0
 --- !u!4 &1277082018
 Transform:
   m_ObjectHideFlags: 0

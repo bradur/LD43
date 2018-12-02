@@ -217,6 +217,8 @@ public class PlayerMovement : MonoBehaviour
         int newPosY = yPos + (axis == 1 ? direction : 0);
         if (!physicallyMoving && mapGrid.CanMoveIntoPosition(newPosX, newPosY))
         {
+            currentLerpTime = 0f;
+            lerpTime = moveInterval;
             MoveToPosition(newPosX, newPosY);
             foreach (GridObject gridObject in mapGrid.GetCopy(xPos, yPos))
             {
@@ -242,12 +244,13 @@ public class PlayerMovement : MonoBehaviour
                 if (gap != null) {
                     newPosX = newPosX + (axis == 0 ? direction : 0);
                     newPosY = newPosY + (axis == 1 ? direction : 0);
+                    currentLerpTime = 0f;
+                    lerpTime = moveInterval * 2;
                     MoveToPosition(newPosX, newPosY);
                 }
             }
             else if (keys.Count > 0) {
                 Door door = mapGrid.GetSpecificObject<Door>(newPosX, newPosY);
-                
                 if (door != null) {
                     DoorKey doorKey = null;
                     foreach(DoorKey key in keys) {
@@ -257,10 +260,11 @@ public class PlayerMovement : MonoBehaviour
                         }
                     }
                     if (doorKey != null) {
-
                         keys.Remove(doorKey);
                         doorKey.RemoveFromInventory();
                         door.Unlock();
+                        currentLerpTime = 0f;
+                        lerpTime = moveInterval * 2;
                         MoveToPosition(newPosX, newPosY);
                     }
                 } 
