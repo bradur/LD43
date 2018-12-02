@@ -5,7 +5,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq; 
+using System.Linq;
 
 public enum MoveDirection
 {
@@ -60,6 +60,8 @@ public class PlayerMovement : MonoBehaviour
     private SpriteRenderer spriteRenderer;
 
 
+    [SerializeField]
+    private TMPro.TextMeshPro textMesh;
     private bool allowMovement = true;
 
     public bool AllowMovement { set{ allowMovement = value ;}}
@@ -71,10 +73,17 @@ public class PlayerMovement : MonoBehaviour
 
     PlayerCharacterManager characterManager;
 
+    private Color originalNumberColor;
+
+    [SerializeField]
+    private Color selectedNumberColor;
+
     public void Init(int x, int y, MapGrid mapGrid, TiledSharp.PropertyDict properties, ColorList colorList)
     {
         GameManager.main.EditPlayerCount(1);
+        originalNumberColor = textMesh.color;
         characterId = Tools.IntParseFast(Tools.GetProperty(properties, "characterId"));
+        textMesh.text = characterId.ToString();
         characterManager = GameManager.main.GetCharacterManager();
         characterManager.AddCharacter(this);
         xPos = x;
@@ -88,11 +97,13 @@ public class PlayerMovement : MonoBehaviour
 
     public void Kill() {
         GameManager.main.EditPlayerCount(-1);
+        mapGrid.RemoveObject(xPos, yPos, GetComponent<GridObject>());
         characterManager.RemoveCharacter(this);
     }
 
     public void StartDying () {
         dying = true;
+        textMesh.enabled = false;
     }
     public void SetOptions(float interval, float distanceToStopLerp)
     {
@@ -168,11 +179,13 @@ public class PlayerMovement : MonoBehaviour
     public void Deselect()
     {
         selectedCharacter = false;
+        textMesh.color = originalNumberColor;
     }
 
     public void Select()
     {
         selectedCharacter = true;
+        textMesh.color = selectedNumberColor;
     }
 
     public void MoveToPosition(int newPosX, int newPosY)
