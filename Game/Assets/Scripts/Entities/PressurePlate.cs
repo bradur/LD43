@@ -45,8 +45,6 @@ public class PressurePlate : MonoBehaviour {
         }
     }
 
-    
-
     private void ProcessActivation()
     {
         foreach (GridObject gridObject in mapGrid.GetAllWithActivationId(activationId))

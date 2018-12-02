@@ -123,6 +123,10 @@ public class LevelLoader : MonoBehaviour
         }
     }
 
+    public bool IsFinalLevel () {
+        return (nextLevel + 1) >= levelList.Levels.Count;
+    }
+
     public void RestartLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);

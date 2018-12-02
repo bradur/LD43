@@ -80,6 +80,17 @@ public class UIManager : MonoBehaviour {
         ShowPopup("Great!", GetRandomQuote(), info);
     }
 
+    public void ShowTheEndMenu() {
+
+        string info = string.Format(
+            "> Press {0} to quit\n> Press {1} to restart level",
+            KeyManager.main.GetKeyString(Action.Quit),
+            KeyManager.main.GetKeyString(Action.Restart)
+        );
+
+        ShowPopup("The end!", "That's all, folks!", info);
+    }
+
     public void OpenPauseMenu() {
         string info = string.Format(
             "> Press {0} to close this dialog\n> Press {1} to restart level",

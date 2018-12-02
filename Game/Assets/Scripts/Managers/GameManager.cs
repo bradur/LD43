@@ -81,8 +81,14 @@ public class GameManager : MonoBehaviour {
     public void CharacterMovementFinished() {
         if (endWasReached) {
             playerCharacterManager.KillAllIdleCharacters();
-            levelEndMenuShown = true;
-            uiManager.ShowLevelEndMenu();
+            if (levelLoader.IsFinalLevel()) {
+                theEndMenuShown = true;
+                uiManager.ShowTheEndMenu();
+            } else {
+                levelEndMenuShown = true;
+                uiManager.ShowLevelEndMenu();
+            }
+
         }
     }
     public void ToggleEnd(bool activated) {
@@ -136,6 +142,7 @@ public class GameManager : MonoBehaviour {
         Application.Quit();
     }
 
+    private bool theEndMenuShown = false;
     private bool pauseMenuShown = false;
     public void OpenPauseMenu() {
         pauseMenuShown = true;
@@ -154,7 +161,15 @@ public class GameManager : MonoBehaviour {
     }
 
     void Update () {
-        if (levelEndMenuShown) {
+        if (theEndMenuShown) {
+            if (KeyManager.main.GetKeyDown(Action.Quit)) {
+                Quit();
+            }
+            if (KeyManager.main.GetKeyDown(Action.Restart)) {
+                RestartLevel();
+            }
+        }
+        else if (levelEndMenuShown) {
             if (KeyManager.main.GetKeyDown(Action.NextLevel)) {
                 LoadNextLevel();
             }
