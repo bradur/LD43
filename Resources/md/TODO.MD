@@ -1,5 +1,25 @@
 - [ ] Art
 
+    - [ ] Sounds
+
+        - [x] Music
+
+        - [ ] Game
+
+            - [x] Character die
+            - [x] Flames
+            - [ ] Switch On
+            - [ ] Switch Off
+            - [x] Portcullis down
+            - [x] Portcullis up
+            - [x] Jump
+            - [x] Pickup key
+            - [x] Open door
+            - [x] Switch character
+            - [x] Character walk on End
+            - [x] Character cant walk that way
+            - [ ] Level passed
+
     - [ ] UI
 
         - [ ] Facial expressions

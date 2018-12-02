@@ -94,6 +94,7 @@ public class GameManager : MonoBehaviour {
         if (activatedEnds >= levelLoader.PlayersRequired) {
             endWasReached = true;
             Debug.Log("All players activated!");
+            SoundManager.main.PlaySound(SoundType.Flames);
             mapGrid.ActivateAllFloorParticleSystems();
             playerCharacterManager.PreventMovement();
             playerCharacterManager.PreventSwitching();

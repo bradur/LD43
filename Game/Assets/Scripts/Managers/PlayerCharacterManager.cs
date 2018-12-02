@@ -78,6 +78,7 @@ public class PlayerCharacterManager : MonoBehaviour
             }
         }
         if (selectThisCharacter != null && !selectThisCharacter.Dying) {
+            SoundManager.main.PlaySound(SoundType.SwitchCharacter);
             foreach (PlayerMovement character in characters)
             {
                 if (character.CharacterId == characterId)

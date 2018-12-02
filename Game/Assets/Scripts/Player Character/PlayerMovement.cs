@@ -102,6 +102,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public void StartDying () {
+        SoundManager.main.PlaySound(SoundType.CharacterDie);
         dying = true;
         textMesh.enabled = false;
     }
@@ -227,6 +228,7 @@ public class PlayerMovement : MonoBehaviour
                     gridObject.GetComponent<PickupObject>().Pickup(this);
                     mapGrid.RemoveObject(xPos, yPos, gridObject);
                     DoorKey key = gridObject.GetComponent<DoorKey>();
+                    SoundManager.main.PlaySound(SoundType.Pickup);
                     if (key != null) {
                         key.Hide();
                         keys.Add(key);
@@ -234,6 +236,7 @@ public class PlayerMovement : MonoBehaviour
                 }
                 else if (gridObject.CollisionType == CollisionType.LevelEnd) {
                     gridObject.Interact(this);
+                    SoundManager.main.PlaySound(SoundType.WalkOnEnd);
                 }
             }
             return true;
@@ -247,6 +250,7 @@ public class PlayerMovement : MonoBehaviour
                     currentLerpTime = 0f;
                     lerpTime = moveInterval * 2;
                     MoveToPosition(newPosX, newPosY);
+                    SoundManager.main.PlaySound(SoundType.Jump);
                 }
             }
             else if (keys.Count > 0) {
@@ -262,12 +266,17 @@ public class PlayerMovement : MonoBehaviour
                     if (doorKey != null) {
                         keys.Remove(doorKey);
                         doorKey.RemoveFromInventory();
+                        SoundManager.main.PlaySound(SoundType.OpenDoor);
                         door.Unlock();
                         currentLerpTime = 0f;
                         lerpTime = moveInterval * 2;
                         MoveToPosition(newPosX, newPosY);
+                    } else {
+                        //SoundManager.main.PlaySound(SoundType.CantWalk);
                     }
-                } 
+                }
+            } else {
+                //SoundManager.main.PlaySound(SoundType.CantWalk);
             }
         }
         return false;

@@ -36,12 +36,21 @@ public class LevelLoader : MonoBehaviour
             DontDestroyOnLoad(gameObject);
             SceneManager.sceneLoaded += OnSceneLoaded;
             GameManager.main.SetLevelLoader(this);
+            if (!musicMuted) {
+                music.Play();
+            }
         }
         else
         {
             Destroy(gameObject);
         }
     }
+
+
+    [SerializeField]
+    private bool musicMuted = false;
+    [SerializeField]
+    private AudioSource music;
 
     [SerializeField]
     private TiledMap tiledMapPrefab;

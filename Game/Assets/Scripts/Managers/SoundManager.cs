@@ -11,7 +11,14 @@ public enum SoundType
     PortcullisOn,
     PortcullisOff,
     SwitchOn,
-    SwitchOff
+    SwitchOff,
+    CharacterDie,
+    Flames,
+    Jump,
+    OpenDoor,
+    SwitchCharacter,
+    WalkOnEnd,
+    CantWalk
 }
 
 public class SoundManager : MonoBehaviour
