@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class UICharacterManager : MonoBehaviour
 {
@@ -41,5 +42,9 @@ public class UICharacterManager : MonoBehaviour
                 uiCharacter.Deselect();
             }
         }
+    }
+
+    public UICharacter GetUICharacter(int characterId) {
+        return uiCharacters.First(character => character.CharacterId == characterId);
     }
 }

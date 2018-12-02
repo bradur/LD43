@@ -12,7 +12,8 @@ public enum CollisionType
     Wall,
     Pickup,
     Switch,
-    Gap
+    Gap,
+    LevelEnd
 }
 
 public class GridObject : MonoBehaviour
@@ -29,7 +30,7 @@ public class GridObject : MonoBehaviour
     [SerializeField]
     private bool killable = false;
 
-    public void Init(int x, int y, MapGrid mapGrid, TiledSharp.PropertyDict properties)
+    public void Init(int x, int y, MapGrid mapGrid, TiledSharp.PropertyDict properties, ColorList colorList)
     {
         animator = GetComponent<Animator>();
         activationId = Tools.IntParseFast(Tools.GetProperty(properties, "activationId"));
@@ -43,12 +44,21 @@ public class GridObject : MonoBehaviour
         {
             playerMovement.Init(x, y, mapGrid, properties);
         }
+        foreach(DoorKey doorKey in GetComponents<DoorKey>()) {
+            doorKey.Init(properties, colorList);
+        }
+        foreach(Door door in GetComponents<Door>()) {
+            door.Init(properties, colorList);
+        }
     }
 
     public void Interact() {
 
         foreach(Switch switchObject in GetComponents<Switch>()) {
             switchObject.Activate();
+        }
+        foreach (LevelEnd endObject in GetComponents<LevelEnd>()) {
+            endObject.Toggle();
         }
 
     }

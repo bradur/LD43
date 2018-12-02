@@ -4,6 +4,8 @@
 
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq; 
 
 public enum MoveDirection
 {
@@ -47,6 +49,8 @@ public class PlayerMovement : MonoBehaviour
 
     private float distanceToStopLerp;
 
+    private Animator animator;
+
     public void Init(int x, int y, MapGrid mapGrid, TiledSharp.PropertyDict properties)
     {
         characterId = Tools.IntParseFast(Tools.GetProperty(properties, "characterId"));
@@ -54,6 +58,7 @@ public class PlayerMovement : MonoBehaviour
         characterManager.AddCharacter(this);
         xPos = x;
         yPos = y;
+        animator = GetComponent<Animator>();
         this.mapGrid = mapGrid;
         lerpTime = moveInterval;
     }
@@ -83,6 +88,9 @@ public class PlayerMovement : MonoBehaviour
             else if (KeyManager.main.GetKey(Action.MoveLeft))
             {
                 AttemptToMove(MoveDirection.Backward, MoveAxis.Horizontal);
+            }
+            else if (!physicallyMoving) {
+                animator.SetBool("walking", false);
             }
             if (KeyManager.main.GetKeyDown(Action.InteractWithObject)) {
                 foreach(GridObject gridObject in mapGrid.Get(xPos, yPos)) {
@@ -117,6 +125,7 @@ public class PlayerMovement : MonoBehaviour
                 transform.position = targetPosition;
                 currentLerpTime = 0f;
                 physicallyMoving = false;
+                animator.SetBool("walking", false);
             }
         }
     }
@@ -134,6 +143,7 @@ public class PlayerMovement : MonoBehaviour
     public void MoveToPosition(int newPosX, int newPosY)
     {
         // animate somehow?
+        mapGrid.MovingAwayFrom(xPos, yPos);
         Vector3 oldPosition = transform.position;
         targetPosition = new Vector3(newPosX * tileSize, newPosY * tileSize, oldPosition.z);
         physicallyMoving = true;
@@ -144,9 +154,12 @@ public class PlayerMovement : MonoBehaviour
     private bool isJumping = false;
     private bool physicallyJumping = false;
 
+    private List<DoorKey> keys = new List<DoorKey>();
+
     public bool AttemptToMove(MoveDirection moveDirection, MoveAxis moveAxis)
     {
         //moving = true;
+        animator.SetBool("walking", true);
         int direction = moveDirection == MoveDirection.Forward ? 1 : -1;
         int axis = moveAxis == MoveAxis.Horizontal ? 0 : 1;
         int newPosX = xPos + (axis == 0 ? direction : 0);
@@ -154,22 +167,45 @@ public class PlayerMovement : MonoBehaviour
         if (!physicallyMoving && mapGrid.CanMoveIntoPosition(newPosX, newPosY))
         {
             MoveToPosition(newPosX, newPosY);
-            foreach (GridObject gridObject in mapGrid.Get(xPos, yPos))
+            foreach (GridObject gridObject in mapGrid.GetCopy(xPos, yPos))
             {
                 if (gridObject.CollisionType == CollisionType.Pickup)
                 {
-                    gridObject.GetComponent<PickupObject>().Pickup();
+                    gridObject.GetComponent<PickupObject>().Pickup(this);
+                    mapGrid.RemoveObject(xPos, yPos, gridObject);
+                    DoorKey key = gridObject.GetComponent<DoorKey>();
+                    if (key != null) {
+                        key.Hide();
+                        keys.Add(key);
+                    }
+                }
+                else if (gridObject.CollisionType == CollisionType.LevelEnd) {
+                    gridObject.Interact();
                 }
             }
             return true;
-        } else if (canJump) {
+        } else {
             JumpableGap gap = mapGrid.GetSpecificObject<JumpableGap>(newPosX, newPosY);
-            Debug.Log(string.Format("Gap: {0}", gap));
-            if (gap != null) {
-                newPosX = newPosX + (axis == 0 ? direction : 0);
-                newPosY = newPosY + (axis == 1 ? direction : 0);
-                Debug.Log(string.Format("Jump to: [x: {0}, y: {1}]", newPosX, newPosY));
-                MoveToPosition(newPosX, newPosY);
+            if (gap != null && canJump) {
+            
+                if (gap != null) {
+                    newPosX = newPosX + (axis == 0 ? direction : 0);
+                    newPosY = newPosY + (axis == 1 ? direction : 0);
+                    MoveToPosition(newPosX, newPosY);
+                }
+            }
+            else if (keys.Count > 0) {
+                Door door = mapGrid.GetSpecificObject<Door>(newPosX, newPosY);
+                
+                if (door != null) {
+                    DoorKey doorKey = keys.First(key => key.KeyId == door.KeyId);
+                    if (doorKey != null) {
+                        keys.Remove(doorKey);
+                        doorKey.RemoveFromInventory();
+                        door.Unlock();
+                        MoveToPosition(newPosX, newPosY);
+                    }
+                } 
             }
         }
         return false;

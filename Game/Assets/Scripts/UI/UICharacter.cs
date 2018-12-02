@@ -31,6 +31,10 @@ public class UICharacter : MonoBehaviour {
 
     private float horizontalMargin = 10f;
 
+    private int itemCount;
+
+    public int ItemCount {get {return itemCount;} set {itemCount = value;}}
+
     public void Init(PlayerMovement playerCharacter, Color selectedColor)
     {
         this.selectedColor = selectedColor;

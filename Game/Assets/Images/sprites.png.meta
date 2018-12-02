@@ -13,6 +13,9 @@ TextureImporter:
     21300016: characterIDLE
     21300018: characterWALK
     21300020: switchOn
+    21300022: key
+    21300024: lockedDoor
+    21300026: unlockedDoor
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -343,6 +346,66 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: a4f5a7739b11f474686a5d17412d09bf
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: key
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fae1b03156aeff2448b8c31c3adde7dd
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lockedDoor
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e06f06fdae8e62c42833edbb78293d54
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: unlockedDoor
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 321
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bcf9dce64e198b243b0834d14ee101d7
       vertices: []
       indices: 
       edges: []

@@ -20,13 +20,19 @@ public class TiledMap : MonoBehaviour
 
     private MapGrid mapGrid;
 
-    public void Init(TmxMap map, LevelLoader levelLoader, MapGrid mapGrid)
+    private ColorList colorList;
+
+    private int playersRequired = 0;
+
+    public int Init(TmxMap map, LevelLoader levelLoader, MapGrid mapGrid, ColorList colorList)
     {
+        this.colorList = colorList;
         this.levelLoader = levelLoader;
         this.mapGrid = mapGrid;
         this.mapGrid.Initialize(map.Width, map.Height);
         DrawLayers(map);
         SpawnObjects(map);
+        return playersRequired;
     }
 
     private void DrawLayers(TmxMap map)
@@ -78,6 +84,9 @@ public class TiledMap : MonoBehaviour
         {
             mapGrid.AddObject(spawnedObject, x, y);
         }
+        if (mapObject.prefab.CollisionType == CollisionType.LevelEnd) {
+            playersRequired += 1;
+        }
     }
 
     private void SpawnMapObject(int x, int y, MapObject mapObject, TmxObject tmxObject)
@@ -89,7 +98,7 @@ public class TiledMap : MonoBehaviour
     private GridObject SpawnObject(int x, int y, MapObject mapObject, PropertyDict properties)
     {
         GridObject spawnedObject = Instantiate(mapObject.prefab);
-        spawnedObject.Init(x, y, mapGrid, properties);
+        spawnedObject.Init(x, y, mapGrid, properties, colorList);
         GameObject container = GameObject.FindGameObjectWithTag(mapObject.containerTag);
         if (container != null)
         {

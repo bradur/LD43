@@ -57,10 +57,16 @@ public class LevelLoader : MonoBehaviour
     private MapObjectList mapObjectList;
 
     [SerializeField]
+    private ColorList colorList;
+
+    [SerializeField]
     private FollowCamera followCamera;
 
     [SerializeField]
     private int nextLevel = 0;
+
+    private int playersRequired = 0;
+    public int PlayersRequired {get {return playersRequired;}}
 
     void Start()
     {
@@ -117,7 +123,7 @@ public class LevelLoader : MonoBehaviour
 
         Debug.Log(string.Format("Opening {0}", mapFile.name));
         TiledMap tiledMap = Instantiate(tiledMapPrefab);
-        tiledMap.Init(map, this, mapGrid);
+        playersRequired = tiledMap.Init(map, this, mapGrid, colorList);
         PlayerCharacterManager characterManager = GameManager.main.GetCharacterManager();
         characterManager.SelectCharacter(1);
     }

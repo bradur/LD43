@@ -10,6 +10,7 @@ TagManager:
   - GroundContainer
   - PlayerContainer
   - KeyManager
+  - PickupContainer
   layers:
   - Default
   - TransparentFX

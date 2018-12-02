@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="26" height="16" tilewidth="64" tileheight="64" infinite="0" nextlayerid="17" nextobjectid="19">
+<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="26" height="16" tilewidth="64" tileheight="64" infinite="0" nextlayerid="18" nextobjectid="23">
  <tileset firstgid="1" source="../Tilesets/sprites.tsx"/>
  <layer id="13" name="Floor" width="26" height="16">
   <properties>
@@ -35,7 +35,7 @@
 1,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,
 1,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,1,
 1,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,1,
-1,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,1,
+1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,
 1,1,1,1,1,1,1,0,1,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,1,
 1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,1,
 1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,1,1,1,1,1,0,1,1,1,
@@ -70,6 +70,18 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
+ <objectgroup id="17" name="DoorsAndKeys">
+  <object id="19" name="Door" type="Door" gid="20" x="832" y="448" width="64" height="64">
+   <properties>
+    <property name="keyId" value="0"/>
+   </properties>
+  </object>
+  <object id="20" name="Key" type="Key" gid="19" x="1216" y="768" width="64" height="64">
+   <properties>
+    <property name="keyId" value="0"/>
+   </properties>
+  </object>
+ </objectgroup>
  <objectgroup id="16" name="Players">
   <object id="17" type="PlayerJump" gid="57" x="128" y="128" width="64" height="64">
    <properties>
@@ -88,6 +100,11 @@
  </objectgroup>
  <objectgroup id="7" name="Switches">
   <object id="2" type="Switch" gid="9" x="704" y="192" width="64" height="64">
+   <properties>
+    <property name="activationId" value="1"/>
+   </properties>
+  </object>
+  <object id="22" type="Switch" gid="9" x="1152" y="768" width="64" height="64">
    <properties>
     <property name="activationId" value="1"/>
    </properties>

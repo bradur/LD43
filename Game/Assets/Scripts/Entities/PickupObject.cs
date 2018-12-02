@@ -15,9 +15,33 @@ public class PickupObject : MonoBehaviour {
     
     }
 
-    public void Pickup()
+    private Sprite sprite;
+    public Sprite Sprite {get {return sprite;}}
+    private Color color;
+    public Color Color {get {return color;}}
+    private string displayName;
+    public string DisplayName {get {return displayName;}}
+    public void Init(Sprite sprite, Color color, string displayName) {
+        this.sprite = sprite;
+        this.color = color;
+        this.displayName = displayName;
+    }
+
+    private UIManager uiManager;
+    public void Pickup(PlayerMovement player)
     {
         // uimanager stuff...
+        if (uiManager == null) {
+            uiManager = GameManager.main.GetUIManager();
+        }
+        uiManager.AddPickupObject(this, player);
+    }
 
+    public void RemoveFromInventory() {
+        // uimanager stuff...
+        if (uiManager == null) {
+            uiManager = GameManager.main.GetUIManager();
+        }
+        uiManager.RemoveItemFromInventory(this);
     }
 }

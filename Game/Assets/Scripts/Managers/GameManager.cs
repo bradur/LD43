@@ -57,6 +57,19 @@ public class GameManager : MonoBehaviour {
         levelLoader.OpenNextLevel();
     }
 
+    private int activatedEnds = 0;
+    public void ToggleEnd(bool activated) {
+        if (activated) {
+            activatedEnds += 1;
+        } else {
+            activatedEnds -= 1;
+        }
+        if (activatedEnds >= levelLoader.PlayersRequired) {
+            Debug.Log("All players activated!");
+            LoadNextLevel();
+        }
+    }
+
     public MapGrid GetMapGrid()
     {
         return mapGrid;

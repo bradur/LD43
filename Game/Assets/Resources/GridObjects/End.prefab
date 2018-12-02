@@ -36,6 +36,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4402250190923144}
   - component: {fileID: 114839466493256704}
+  - component: {fileID: 114879864652812430}
   m_Layer: 0
   m_Name: End
   m_TagString: Untagged
@@ -81,7 +82,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b897f6188e0e5b948940099beb3851cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collisionType: 6
   killable: 0
+--- !u!114 &114879864652812430
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1625350262245452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 263dbe0340c47204ebed96479038b5b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 21300006, guid: 0b46813ea917cd343952bead9730de1c, type: 3}
+  activeColor: {r: 0.6839622, g: 1, b: 0.7050314, a: 1}
+  originalColor: {r: 1, g: 1, b: 1, a: 1}
+  spriteRenderer: {fileID: 212404959411661156}
 --- !u!212 &212404959411661156
 SpriteRenderer:
   m_ObjectHideFlags: 1

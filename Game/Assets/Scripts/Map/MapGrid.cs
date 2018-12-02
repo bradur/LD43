@@ -74,6 +74,16 @@ public class MapGrid : MonoBehaviour
         return gridObjects;
     }
 
+
+    public List<GridObject> GetCopy(int x, int y)
+    {
+        List<GridObject> gridObjects = new List<GridObject>();
+        foreach(GridObject gridObject in Get(x, y)) {
+            gridObjects.Add(gridObject);
+        }
+        return gridObjects;
+    }
+
     public bool CanMoveIntoPosition(int x, int y)
     {
         List<GridObject> gridObjects = Get(x, y);
@@ -95,6 +105,18 @@ public class MapGrid : MonoBehaviour
             return noWalls;
         }
         return false;
+    }
+
+    public void RemoveObject(int x, int y, GridObject gridObject) {
+        Get(x, y).Remove(gridObject);
+    }
+
+    public void MovingAwayFrom(int x, int y) {
+        foreach (GridObject gridObject in Get(x, y)) {
+            if (gridObject.CollisionType == CollisionType.LevelEnd) {
+                gridObject.Interact();
+            }
+        }
     }
 
     public T GetSpecificObject<T>(int x, int y) {
