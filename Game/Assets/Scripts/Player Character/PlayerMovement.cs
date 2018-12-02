@@ -41,6 +41,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private bool canJump = false;
 
+    public bool CanJump { get { return canJump; } }
+
     private bool selectedCharacter = false;
 
     private int xPos;
@@ -51,18 +53,40 @@ public class PlayerMovement : MonoBehaviour
 
     private Animator animator;
 
-    public void Init(int x, int y, MapGrid mapGrid, TiledSharp.PropertyDict properties)
+    [SerializeField]
+    private SpriteRenderer spriteRenderer;
+
+
+    private bool dying = false;
+
+    public bool Dying {get {return dying;}}
+    private Color currentColor;
+
+    PlayerCharacterManager characterManager;
+
+    public void Init(int x, int y, MapGrid mapGrid, TiledSharp.PropertyDict properties, ColorList colorList)
     {
+        GameManager.main.EditPlayerCount(1);
         characterId = Tools.IntParseFast(Tools.GetProperty(properties, "characterId"));
-        PlayerCharacterManager characterManager = GameManager.main.GetCharacterManager();
+        characterManager = GameManager.main.GetCharacterManager();
         characterManager.AddCharacter(this);
         xPos = x;
         yPos = y;
         animator = GetComponent<Animator>();
         this.mapGrid = mapGrid;
         lerpTime = moveInterval;
+        currentColor = colorList.Colors[characterId].color;
     }
 
+
+    public void Kill() {
+        GameManager.main.EditPlayerCount(-1);
+        characterManager.RemoveCharacter(this);
+    }
+
+    public void StartDying () {
+        dying = true;
+    }
     public void SetOptions(float interval, float distanceToStopLerp)
     {
         this.distanceToStopLerp = distanceToStopLerp;
@@ -71,7 +95,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (selectedCharacter)
+        if (selectedCharacter && !dying)
         {
             if (KeyManager.main.GetKey(Action.MoveUp))
             {
@@ -112,7 +136,7 @@ public class PlayerMovement : MonoBehaviour
 
     void LateUpdate ()
     {
-        if (physicallyMoving)
+        if (physicallyMoving && !dying)
         {
             currentLerpTime += Time.deltaTime;
             if (currentLerpTime > lerpTime) {
@@ -127,6 +151,9 @@ public class PlayerMovement : MonoBehaviour
                 physicallyMoving = false;
                 animator.SetBool("walking", false);
             }
+        }
+        if (!dying) {
+            spriteRenderer.color = currentColor;
         }
     }
 
@@ -144,6 +171,9 @@ public class PlayerMovement : MonoBehaviour
     {
         // animate somehow?
         mapGrid.MovingAwayFrom(xPos, yPos);
+        GridObject gridObject = GetComponent<GridObject>();
+        mapGrid.RemoveObject(xPos, yPos, gridObject);
+        mapGrid.AddObject(gridObject, newPosX, newPosY);
         Vector3 oldPosition = transform.position;
         targetPosition = new Vector3(newPosX * tileSize, newPosY * tileSize, oldPosition.z);
         physicallyMoving = true;

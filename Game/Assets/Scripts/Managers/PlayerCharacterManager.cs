@@ -6,6 +6,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
+using System.Linq;
 
 public class PlayerCharacterManager : MonoBehaviour
 {
@@ -23,6 +24,8 @@ public class PlayerCharacterManager : MonoBehaviour
     [SerializeField]
     private CinemachineVirtualCamera virtualCamera;
 
+
+    private int previousCharacterId = -1;
     private void Start()
     {
         uiManager = GameManager.main.GetUIManager();
@@ -35,18 +38,34 @@ public class PlayerCharacterManager : MonoBehaviour
         uiManager.AddCharacter(character);
     }
 
+    public void RemoveCharacter(PlayerMovement character) {
+        UICharacter uiCharacter = uiManager.GetUICharacter(character.CharacterId);
+        bool selected = false;
+        if (uiCharacter != null) {
+            selected = uiCharacter.Selected;
+        }
+        characters.Remove(character);
+        uiManager.RemoveCharacter(character);
+        if (selected) {
+            SelectPrevious();
+        }
+    }
+
     public PlayerMovement SelectCharacter(int characterId)
     {
-        if (characters.Count >= characterId)
-        {
-            PlayerMovement selectedCharacter = null;
-            Debug.Log(string.Format("Selecting character #{0}.", characterId));
+        PlayerMovement selectedCharacter = null;
+        Debug.Log(string.Format("Selecting character #{0}.", characterId));
+        PlayerMovement selectThisCharacter = characters.First(character => character.CharacterId == characterId);
+        if (!selectThisCharacter.Dying) {
             foreach (PlayerMovement character in characters)
             {
                 if (character.CharacterId == characterId)
                 {
+                    previousCharacterId = uiManager.SelectCharacter(character.CharacterId);
+                    if (previousCharacterId == -1) {
+                        previousCharacterId = characterId;
+                    }
                     selectedCharacter = character;
-                    uiManager.SelectCharacter(character.CharacterId);
                     character.Select();
                     virtualCamera.Follow = selectedCharacter.transform;
                 }
@@ -55,9 +74,20 @@ public class PlayerCharacterManager : MonoBehaviour
                     character.Deselect();
                 }
             }
-            return selectedCharacter;
         }
-        return null;
+        return selectedCharacter;
+    }
+
+    public void SelectPrevious() {
+        UICharacter uICharacter = uiManager.GetUICharacter(previousCharacterId);
+        Debug.Log(string.Format("Selecting previous char: {0} id: {1}", uICharacter, previousCharacterId));
+        if (uICharacter != null) {
+            if (characters.Count > 0) {
+                SelectCharacter(characters[0].CharacterId);
+            }
+        } else {
+            SelectCharacter(previousCharacterId);
+        }
     }
 
     private void Update()

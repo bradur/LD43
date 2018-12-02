@@ -13,4 +13,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectName: ScriptableObject
   levels:
+  - {fileID: 4900000, guid: 2c22f30c0df304d458846f41027f7114, type: 3}
   - {fileID: 4900000, guid: 4f7e87e863e4e244b8db04d329901c13, type: 3}

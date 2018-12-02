@@ -38,7 +38,7 @@ MonoBehaviour:
     prefab: {fileID: 114968016077908570, guid: 9a3520723fb6bdb4cb847a55527b4de7, type: 2}
     containerTag: PlayerContainer
   - name: PlayerJump
-    prefab: {fileID: 114968016077908570, guid: 6d883b7079ce046449f388f8c1ebd277, type: 2}
+    prefab: {fileID: 114968016077908570, guid: b07360e4d359cf94a9e6ff44fc323695, type: 2}
     containerTag: PlayerContainer
   - name: Key
     prefab: {fileID: 114893723265923602, guid: d32626cd3f669a14183a718d511c665a, type: 2}
@@ -47,5 +47,5 @@ MonoBehaviour:
     prefab: {fileID: 114956000397895646, guid: cd60750767a56d94788ed29bdbd38493, type: 2}
     containerTag: PlayerContainer
   - name: PlayerJump
-    prefab: {fileID: 114968016077908570, guid: 6d883b7079ce046449f388f8c1ebd277, type: 2}
+    prefab: {fileID: 0}
     containerTag: PlayerContainer

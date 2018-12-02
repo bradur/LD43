@@ -35,4 +35,9 @@ public class DoorKey : MonoBehaviour {
             pickupObject.RemoveFromInventory();
         }
     }
+
+    public void Kill() {
+        // kill doorkey!
+        Destroy(gameObject);
+    }
 }

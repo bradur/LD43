@@ -12,9 +12,6 @@ public class UICharacter : MonoBehaviour {
     private Text txtCharacterId;
 
     [SerializeField]
-    private Color portraitColor;
-
-    [SerializeField]
     private Image imgPortrait;
 
     [SerializeField]
@@ -33,9 +30,12 @@ public class UICharacter : MonoBehaviour {
 
     private int itemCount;
 
+    [SerializeField]
+    private GameObject canJumpIndicator;
+
     public int ItemCount {get {return itemCount;} set {itemCount = value;}}
 
-    public void Init(PlayerMovement playerCharacter, Color selectedColor)
+    public void Init(PlayerMovement playerCharacter, Color portraitColor, Color selectedColor)
     {
         this.selectedColor = selectedColor;
         originalColor = imgPortraitBorder.color;
@@ -46,17 +46,30 @@ public class UICharacter : MonoBehaviour {
         float width = rt.sizeDelta.x;
         float index = character.CharacterId - 1;
         rt.anchoredPosition = new Vector2(width * index + horizontalMargin * index, 0);
+        if (playerCharacter.CanJump) {
+            canJumpIndicator.SetActive(true);
+        } else {
+            canJumpIndicator.SetActive(false);
+        }
     }
 
+    private bool selected = false;
+    public bool Selected {get {return selected;}}
     public void Select()
     {
+        selected = true;
         imgPortraitBorder.color = selectedColor;
-        Debug.Log("<color=green>Select!</color>");
+        //Debug.Log("<color=green>Select!</color>");
     }
 
     public void Deselect()
     {
+        selected = false;
         imgPortraitBorder.color = originalColor;
-        Debug.Log("<color=red>Deselect!</color>");
+        //Debug.Log("<color=red>Deselect!</color>");
+    }
+
+    public void Kill() {
+        Destroy(gameObject);
     }
 }

@@ -30,25 +30,25 @@ public class GridObject : MonoBehaviour
     [SerializeField]
     private bool killable = false;
 
-    public void Init(int x, int y, MapGrid mapGrid, TiledSharp.PropertyDict properties, ColorList colorList)
+    public void Init(int x, int y, MapGrid mapGrid, TiledSharp.PropertyDict properties, ColorList colorList, ColorList characterColorList, ColorList gridObjectColorList)
     {
         animator = GetComponent<Animator>();
         activationId = Tools.IntParseFast(Tools.GetProperty(properties, "activationId"));
         foreach (Portcullis portcullis in GetComponents<Portcullis>()) {
-            portcullis.Init(x, y, mapGrid, properties);
+            portcullis.Init(x, y, mapGrid, properties, gridObjectColorList);
         }
         foreach(Switch switchObject in GetComponents<Switch>()) {
-            switchObject.Init(x, y, mapGrid, properties);
+            switchObject.Init(x, y, mapGrid, properties, gridObjectColorList);
         }
         foreach(PlayerMovement playerMovement in GetComponents<PlayerMovement>())
         {
-            playerMovement.Init(x, y, mapGrid, properties);
+            playerMovement.Init(x, y, mapGrid, properties, characterColorList);
         }
         foreach(DoorKey doorKey in GetComponents<DoorKey>()) {
-            doorKey.Init(properties, colorList);
+            doorKey.Init(properties, gridObjectColorList);
         }
         foreach(Door door in GetComponents<Door>()) {
-            door.Init(properties, colorList);
+            door.Init(properties, gridObjectColorList);
         }
     }
 
@@ -67,23 +67,36 @@ public class GridObject : MonoBehaviour
         this.collisionType = collisionType;
     }
 
+    private bool dying = false;
     public void AnimateAndKill()
     {
-        if (killable)
+        if (killable && !dying)
         {
+            dying = true;
             if (animator != null)
             {
                 animator.SetTrigger("Kill");
+                foreach(PlayerMovement playerMovement in GetComponents<PlayerMovement>())
+                {
+                    playerMovement.StartDying();
+                }
             }
             else
             {
-                Kill();
+                KillGridObject();
             }
         }
     }
 
-    public void Kill()
+    public void KillGridObject()
     {
-        Destroy(gameObject);
+        foreach(PlayerMovement playerMovement in GetComponents<PlayerMovement>())
+        {
+            playerMovement.Kill();
+        }
+        foreach(DoorKey doorKey in GetComponents<DoorKey>()) {
+            doorKey.Kill();
+        }
+        //Destroy(gameObject);
     }
 }

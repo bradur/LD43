@@ -156,6 +156,21 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 212080358020386500, guid: 9a3520723fb6bdb4cb847a55527b4de7,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212080358020386500, guid: 9a3520723fb6bdb4cb847a55527b4de7,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212080358020386500, guid: 9a3520723fb6bdb4cb847a55527b4de7,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a3520723fb6bdb4cb847a55527b4de7, type: 2}
   m_IsPrefabAsset: 0
@@ -242,7 +257,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sounds: []
-  musicMuted: 1
+  musicMuted: 0
   musicSource: {fileID: 608372806}
 --- !u!1 &206565057
 GameObject:
@@ -1169,6 +1184,9 @@ MonoBehaviour:
   levelList: {fileID: 11400000, guid: 30c4d398866cbfd44ad129c9511ab6b1, type: 2}
   mapObjectList: {fileID: 11400000, guid: 2934c542bed04c944be84c33b987f586, type: 2}
   colorList: {fileID: 11400000, guid: 011a4e1dee9666e47977f8fe2d5b8008, type: 2}
+  characterColorList: {fileID: 11400000, guid: ae4191b1d0daf654fa78b7c26a45096e, type: 2}
+  gridObjectColorList: {fileID: 11400000, guid: 69362c84bce7c6d418de0ce06e350a3b,
+    type: 2}
   followCamera: {fileID: 0}
   nextLevel: 0
 --- !u!4 &1277082018
@@ -1345,7 +1363,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  m_CustomBlends: {fileID: 0}
+  m_CustomBlends: {fileID: 11400000, guid: 5a1deb9e5739cb440bf30b122a043fa9, type: 2}
   m_CameraCutEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -1451,6 +1469,52 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1001 &1470117121
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4989868823696600, guid: 9a3520723fb6bdb4cb847a55527b4de7, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4989868823696600, guid: 9a3520723fb6bdb4cb847a55527b4de7, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4989868823696600, guid: 9a3520723fb6bdb4cb847a55527b4de7, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4989868823696600, guid: 9a3520723fb6bdb4cb847a55527b4de7, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4989868823696600, guid: 9a3520723fb6bdb4cb847a55527b4de7, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4989868823696600, guid: 9a3520723fb6bdb4cb847a55527b4de7, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4989868823696600, guid: 9a3520723fb6bdb4cb847a55527b4de7, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4989868823696600, guid: 9a3520723fb6bdb4cb847a55527b4de7, type: 2}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1685536407407040, guid: 9a3520723fb6bdb4cb847a55527b4de7, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9a3520723fb6bdb4cb847a55527b4de7, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &1617240440
 GameObject:
   m_ObjectHideFlags: 0
@@ -1511,6 +1575,7 @@ MonoBehaviour:
     type: 2}
   selectedCharacterBorderColor: {r: 0.4117647, g: 0.6666667, b: 0, a: 1}
   characterParent: {fileID: 583265035}
+  colorList: {fileID: 11400000, guid: ae4191b1d0daf654fa78b7c26a45096e, type: 2}
 --- !u!114 &1617240444
 MonoBehaviour:
   m_ObjectHideFlags: 0

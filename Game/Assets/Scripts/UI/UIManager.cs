@@ -21,13 +21,21 @@ public class UIManager : MonoBehaviour {
         uiCharacterManager.AddCharacter(playerMovement);
     }
 
-    public void SelectCharacter(int characterId)
+    public void RemoveCharacter(PlayerMovement playerMovement) {
+        uiCharacterManager.RemoveCharacter(playerMovement);
+    }
+
+    public UICharacter GetUICharacter(int characterId) {
+        return uiCharacterManager.GetUICharacter(characterId);
+    }
+
+    public int SelectCharacter(int characterId)
     {
-        uiCharacterManager.SelectCharacter(characterId);
+        return uiCharacterManager.SelectCharacter(characterId);
     }
 
     public void AddPickupObject(PickupObject pickupObject, PlayerMovement player) {
-        uiInventoryManager.Add(pickupObject, uiCharacterManager.GetUICharacter(player.CharacterId));
+        uiInventoryManager.Add(pickupObject, GetUICharacter(player.CharacterId));
     }
 
     public void RemoveItemFromInventory(PickupObject pickupObject) {

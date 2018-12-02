@@ -112,7 +112,7 @@ public class MapGrid : MonoBehaviour
     }
 
     public void MovingAwayFrom(int x, int y) {
-        foreach (GridObject gridObject in Get(x, y)) {
+        foreach (GridObject gridObject in GetCopy(x, y)) {
             if (gridObject.CollisionType == CollisionType.LevelEnd) {
                 gridObject.Interact();
             }

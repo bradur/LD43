@@ -22,15 +22,27 @@ public class UICharacterManager : MonoBehaviour
 
     private List<UICharacter> uiCharacters = new List<UICharacter>();
 
+    [SerializeField]
+    private ColorList colorList;
+
     public void AddCharacter(PlayerMovement playerMovement)
     {
         UICharacter uiCharacter = Instantiate(uiCharacterPrefab, characterParent);
-        uiCharacter.Init(playerMovement, selectedCharacterBorderColor);
+        uiCharacter.Init(playerMovement, colorList.Colors[playerMovement.CharacterId].color, selectedCharacterBorderColor);
         uiCharacters.Add(uiCharacter);
     }
 
-    public void SelectCharacter(int characterId)
+    public void RemoveCharacter(PlayerMovement playerMovement) {
+        UICharacter uiCharacter = uiCharacters.First(character => character.CharacterId == playerMovement.CharacterId);
+        if (uiCharacter != null) {
+            uiCharacters.Remove(uiCharacter);
+            uiCharacter.Kill();
+        }
+    }
+
+    public int SelectCharacter(int characterId)
     {
+        int previousCharacterId = -1;
         foreach (UICharacter uiCharacter in uiCharacters)
         {
             if (uiCharacter.CharacterId == characterId)
@@ -39,12 +51,25 @@ public class UICharacterManager : MonoBehaviour
             }
             else
             {
+                if (uiCharacter.Selected) {
+                    previousCharacterId = uiCharacter.CharacterId;
+                }
                 uiCharacter.Deselect();
             }
         }
+        return previousCharacterId;
     }
 
     public UICharacter GetUICharacter(int characterId) {
-        return uiCharacters.First(character => character.CharacterId == characterId);
+        UICharacter searchedCharacter = null;
+        foreach (UICharacter uiCharacter in uiCharacters)
+        {
+            if (uiCharacter.CharacterId == characterId)
+            {
+                searchedCharacter = uiCharacter;
+                break;
+            }
+        }
+        return searchedCharacter;
     }
 }

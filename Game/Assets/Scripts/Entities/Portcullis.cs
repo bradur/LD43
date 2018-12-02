@@ -28,12 +28,14 @@ public class Portcullis : MonoBehaviour
 
     private GridObject gridObject;
 
-    public void Init(int x, int y, MapGrid mapGrid, TiledSharp.PropertyDict properties)
+    public void Init(int x, int y, MapGrid mapGrid, TiledSharp.PropertyDict properties, ColorList gridObjectColorList)
     {
+        int activationId = Tools.IntParseFast(Tools.GetProperty(properties, "activationId"));
         gridObject = GetComponent<GridObject>();
         this.mapGrid = mapGrid;
         xPos = x;
         yPos = y;
+        spriteRenderer.color = gridObjectColorList.Colors[activationId].color;
         ProcessSwitch();
     }
 
@@ -50,6 +52,7 @@ public class Portcullis : MonoBehaviour
         {
             foreach(GridObject mapGridObject in mapGrid.Get(xPos, yPos))
             {
+                Debug.Log(string.Format("Portcullis coming down on: {0}", mapGridObject));
                 mapGridObject.AnimateAndKill();
             }
         }

@@ -52,6 +52,20 @@ public class GameManager : MonoBehaviour {
         playerMovement.Stop();
     }*/
 
+
+    private int playerCount = 0;
+    public void EditPlayerCount(int difference) {
+        Debug.Log(string.Format("PlayerCount change: {0} -> {1}. Required: ",
+            playerCount, playerCount + difference, levelLoader.PlayersRequired
+        ));
+        playerCount += difference;
+        if (difference < 0) {
+            if (playerCount < levelLoader.PlayersRequired) {
+                Debug.Log(string.Format("FAILED! Need {0} players, you only have {1}!", levelLoader.PlayersRequired, playerCount));
+            }
+        }
+    }
+
     public void LoadNextLevel()
     {
         levelLoader.OpenNextLevel();
