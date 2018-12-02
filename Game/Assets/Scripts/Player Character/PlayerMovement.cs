@@ -223,6 +223,9 @@ public class PlayerMovement : MonoBehaviour
             MoveToPosition(newPosX, newPosY);
             foreach (GridObject gridObject in mapGrid.GetCopy(xPos, yPos))
             {
+                if (gridObject.CollisionType == CollisionType.PressurePlate) {
+                    gridObject.GetComponent<PressurePlate>().Activate();
+                }
                 if (gridObject.CollisionType == CollisionType.Pickup)
                 {
                     gridObject.GetComponent<PickupObject>().Pickup(this);

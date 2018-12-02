@@ -13,7 +13,8 @@ public enum CollisionType
     Pickup,
     Switch,
     Gap,
-    LevelEnd
+    LevelEnd,
+    PressurePlate
 }
 
 public class GridObject : MonoBehaviour
@@ -42,6 +43,9 @@ public class GridObject : MonoBehaviour
         }
         foreach(Switch switchObject in GetComponents<Switch>()) {
             switchObject.Init(x, y, mapGrid, properties, gridObjectColorList);
+        }
+        foreach(PressurePlate pressurePlate in GetComponents<PressurePlate>()) {
+            pressurePlate.Init(x, y, mapGrid, properties, gridObjectColorList);
         }
         foreach(PlayerMovement playerMovement in GetComponents<PlayerMovement>())
         {

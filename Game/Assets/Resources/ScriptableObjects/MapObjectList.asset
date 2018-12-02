@@ -45,7 +45,7 @@ MonoBehaviour:
     containerTag: PickupContainer
   - name: Door
     prefab: {fileID: 114956000397895646, guid: cd60750767a56d94788ed29bdbd38493, type: 2}
-    containerTag: PlayerContainer
-  - name: PlayerJump
-    prefab: {fileID: 0}
-    containerTag: PlayerContainer
+    containerTag: EntityContainer
+  - name: PressurePlate
+    prefab: {fileID: 114780399727728666, guid: d1e4103a5258b804c8139a0787bb44ce, type: 2}
+    containerTag: EntityContainer
