@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6267d811c39bb0b4a9198f6971b4e6fa, type: 3}
+  m_Name: Quotes
+  m_EditorClassIdentifier: 
+  objectName: ScriptableObject
+  texts:
+  - text: '<i>Alone we can do so little, together we can do so much.</i>
+
+
+      - Helen Keller'
+    name: 
+  - text: '<i>It takes two flints to make a fire.</i>
+
+
+      - Louisa May Alcott'
+    name: 
+  - text: '<i>None of us is as smart as all of us.</i>
+
+
+      - Ken Blanchard'
+    name: 
+  - text: '<i>No one can whistle a symphony. It takes a whole orchestra to play it.</i>
+
+
+      - H.E. Luccock'
+    name: 
+  - text: '<i>Teamwork begins by building trust. And the only way to do that is to
+      overcome our need for invulnerability.</i>
+
+
+      - Patrick Lencioni '
+    name: 

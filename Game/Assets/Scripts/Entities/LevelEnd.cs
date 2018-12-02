@@ -25,10 +25,11 @@ public class LevelEnd : MonoBehaviour {
         originalColor = spriteRenderer.color;
     }
 
-    public void Toggle() {
+    public void Toggle(PlayerMovement player) {
         activated = !activated;
         spriteRenderer.color = activated ? activeColor : originalColor;
         GameManager.main.ToggleEnd(activated);
+        player.ReachedEnd = activated;
     }
 
 }

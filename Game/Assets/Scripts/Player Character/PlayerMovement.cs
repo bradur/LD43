@@ -30,6 +30,9 @@ public class PlayerMovement : MonoBehaviour
     private bool physicallyMoving = false;
     private Vector3 targetPosition;
 
+    private bool reachedEnd;
+    public bool ReachedEnd {get {return reachedEnd;} set {reachedEnd = value;}}
+
     private float tileSize = 1f;
 
     float currentLerpTime = 0f;
@@ -56,6 +59,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private SpriteRenderer spriteRenderer;
 
+
+    private bool allowMovement = true;
+
+    public bool AllowMovement { set{ allowMovement = value ;}}
 
     private bool dying = false;
 
@@ -95,7 +102,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (selectedCharacter && !dying)
+        if (selectedCharacter && !dying && allowMovement)
         {
             if (KeyManager.main.GetKey(Action.MoveUp))
             {
@@ -118,7 +125,7 @@ public class PlayerMovement : MonoBehaviour
             }
             if (KeyManager.main.GetKeyDown(Action.InteractWithObject)) {
                 foreach(GridObject gridObject in mapGrid.Get(xPos, yPos)) {
-                    gridObject.Interact();
+                    gridObject.Interact(this);
                 }
             }
         }
@@ -150,6 +157,7 @@ public class PlayerMovement : MonoBehaviour
                 currentLerpTime = 0f;
                 physicallyMoving = false;
                 animator.SetBool("walking", false);
+                GameManager.main.CharacterMovementFinished();
             }
         }
         if (!dying) {
@@ -170,7 +178,7 @@ public class PlayerMovement : MonoBehaviour
     public void MoveToPosition(int newPosX, int newPosY)
     {
         // animate somehow?
-        mapGrid.MovingAwayFrom(xPos, yPos);
+        mapGrid.MovingAwayFrom(this, xPos, yPos);
         GridObject gridObject = GetComponent<GridObject>();
         mapGrid.RemoveObject(xPos, yPos, gridObject);
         mapGrid.AddObject(gridObject, newPosX, newPosY);
@@ -210,7 +218,7 @@ public class PlayerMovement : MonoBehaviour
                     }
                 }
                 else if (gridObject.CollisionType == CollisionType.LevelEnd) {
-                    gridObject.Interact();
+                    gridObject.Interact(this);
                 }
             }
             return true;
@@ -228,8 +236,15 @@ public class PlayerMovement : MonoBehaviour
                 Door door = mapGrid.GetSpecificObject<Door>(newPosX, newPosY);
                 
                 if (door != null) {
-                    DoorKey doorKey = keys.First(key => key.KeyId == door.KeyId);
+                    DoorKey doorKey = null;
+                    foreach(DoorKey key in keys) {
+                        if (key.KeyId == door.KeyId) {
+                            doorKey = key;
+                            break;
+                        }
+                    }
                     if (doorKey != null) {
+
                         keys.Remove(doorKey);
                         doorKey.RemoveFromInventory();
                         door.Unlock();

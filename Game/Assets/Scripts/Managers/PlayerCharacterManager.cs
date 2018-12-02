@@ -19,16 +19,32 @@ public class PlayerCharacterManager : MonoBehaviour
     [SerializeField]
     private float distanceToStopLerp = 0.1f;
 
+    [SerializeField]
     private UIManager uiManager;
 
     [SerializeField]
     private CinemachineVirtualCamera virtualCamera;
 
+    private bool allowSwitching = true;
 
     private int previousCharacterId = -1;
-    private void Start()
-    {
-        uiManager = GameManager.main.GetUIManager();
+    
+    public void PreventSwitching () {
+        allowSwitching = false;
+    }
+   
+    public void PreventMovement () {
+        foreach (PlayerMovement player in characters) {
+            player.AllowMovement = false;
+        }
+    }
+
+    public void KillAllIdleCharacters() {
+        foreach (PlayerMovement player in characters) {
+            if (!player.ReachedEnd) {
+                player.GetComponent<GridObject>().AnimateAndKill();
+            }
+        }
     }
 
     public void AddCharacter(PlayerMovement character)
@@ -53,10 +69,15 @@ public class PlayerCharacterManager : MonoBehaviour
 
     public PlayerMovement SelectCharacter(int characterId)
     {
-        PlayerMovement selectedCharacter = null;
         Debug.Log(string.Format("Selecting character #{0}.", characterId));
-        PlayerMovement selectThisCharacter = characters.First(character => character.CharacterId == characterId);
-        if (!selectThisCharacter.Dying) {
+        PlayerMovement selectedCharacter = null;
+        PlayerMovement selectThisCharacter = null;
+        foreach(PlayerMovement character in characters) {
+            if (character.CharacterId == characterId) {
+                selectThisCharacter = character;
+            }
+        }
+        if (selectThisCharacter != null && !selectThisCharacter.Dying) {
             foreach (PlayerMovement character in characters)
             {
                 if (character.CharacterId == characterId)
@@ -81,7 +102,7 @@ public class PlayerCharacterManager : MonoBehaviour
     public void SelectPrevious() {
         UICharacter uICharacter = uiManager.GetUICharacter(previousCharacterId);
         Debug.Log(string.Format("Selecting previous char: {0} id: {1}", uICharacter, previousCharacterId));
-        if (uICharacter != null) {
+        if (uICharacter == null) {
             if (characters.Count > 0) {
                 SelectCharacter(characters[0].CharacterId);
             }
@@ -92,21 +113,23 @@ public class PlayerCharacterManager : MonoBehaviour
 
     private void Update()
     {
-        if (KeyManager.main.GetKeyDown(Action.CharacterOne))
-        {
-            SelectCharacter(1);
-        }
-        else if (KeyManager.main.GetKeyDown(Action.CharacterTwo))
-        {
-            SelectCharacter(2);
-        }
-        else if (KeyManager.main.GetKeyDown(Action.CharacterThree))
-        {
-            SelectCharacter(3);
-        }
-        else if (KeyManager.main.GetKeyDown(Action.CharacterFour))
-        {
-            SelectCharacter(4);
+        if (allowSwitching) {
+            if (KeyManager.main.GetKeyDown(Action.CharacterOne))
+            {
+                SelectCharacter(1);
+            }
+            else if (KeyManager.main.GetKeyDown(Action.CharacterTwo))
+            {
+                SelectCharacter(2);
+            }
+            else if (KeyManager.main.GetKeyDown(Action.CharacterThree))
+            {
+                SelectCharacter(3);
+            }
+            else if (KeyManager.main.GetKeyDown(Action.CharacterFour))
+            {
+                SelectCharacter(4);
+            }
         }
     }
 }

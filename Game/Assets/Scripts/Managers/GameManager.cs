@@ -16,6 +16,11 @@ public class GameManager : MonoBehaviour {
     [SerializeField]
     private UIManager uiManager;
 
+    [SerializeField]
+    private PlayerCharacterManager playerCharacterManager;
+
+    private int activatedEnds = 0;
+
     void Awake()
     {
         if (GameObject.FindGameObjectsWithTag("GameManager").Length == 0)
@@ -71,7 +76,15 @@ public class GameManager : MonoBehaviour {
         levelLoader.OpenNextLevel();
     }
 
-    private int activatedEnds = 0;
+    private bool endWasReached = false;
+    private bool levelEndMenuShown = false;
+    public void CharacterMovementFinished() {
+        if (endWasReached) {
+            playerCharacterManager.KillAllIdleCharacters();
+            levelEndMenuShown = true;
+            uiManager.ShowLevelEndMenu();
+        }
+    }
     public void ToggleEnd(bool activated) {
         if (activated) {
             activatedEnds += 1;
@@ -79,8 +92,13 @@ public class GameManager : MonoBehaviour {
             activatedEnds -= 1;
         }
         if (activatedEnds >= levelLoader.PlayersRequired) {
+            endWasReached = true;
             Debug.Log("All players activated!");
-            LoadNextLevel();
+            mapGrid.ActivateAllFloorParticleSystems();
+            playerCharacterManager.PreventMovement();
+            playerCharacterManager.PreventSwitching();
+
+            //LoadNextLevel();
         }
     }
 
@@ -113,11 +131,53 @@ public class GameManager : MonoBehaviour {
         uiManager.ShowTheEndScreen();
     }*/
 
-    void Start () {
-        
+    public void Quit() {
+        Application.Quit();
+    }
+
+    private bool pauseMenuShown = false;
+    public void OpenPauseMenu() {
+        pauseMenuShown = true;
+        Time.timeScale = 0f;
+        uiManager.OpenPauseMenu();
+    }
+
+    public void ClosePauseMenu() {
+        pauseMenuShown = false;
+        Time.timeScale = 1f;
+        uiManager.ClosePauseMenu();
+    }
+
+    public void RestartLevel() {
+        levelLoader.RestartLevel();
     }
 
     void Update () {
-
+        if (levelEndMenuShown) {
+            if (KeyManager.main.GetKeyDown(Action.NextLevel)) {
+                LoadNextLevel();
+            }
+            if (KeyManager.main.GetKeyDown(Action.Quit)) {
+                Quit();
+            }
+            if (KeyManager.main.GetKeyDown(Action.Restart)) {
+                RestartLevel();
+            }
+        } else if (pauseMenuShown) {
+            if (KeyManager.main.GetKeyDown(Action.CloseMenu)) {
+                ClosePauseMenu();
+            }
+            if (KeyManager.main.GetKeyDown(Action.Restart)) {
+                RestartLevel();
+            }
+            if (KeyManager.main.GetKeyDown(Action.Quit)) {
+                Quit();
+            }
+        } else {
+            if (KeyManager.main.GetKeyDown(Action.OpenMenu)) {
+                OpenPauseMenu();
+                Debug.Log("open pause");
+            }
+        }
     }
 }

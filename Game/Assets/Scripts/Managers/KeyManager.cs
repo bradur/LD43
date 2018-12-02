@@ -145,6 +145,8 @@ public class KeyManager : MonoBehaviour
                 else if (gameKey.key == KeyCode.RightControl)
                 {
                     keyString = "Right Ctrl";
+                } else if (gameKey.key == KeyCode.Escape) {
+                    keyString = "Esc";
                 }
                 return keyString;
             }

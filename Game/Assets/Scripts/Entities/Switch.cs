@@ -27,6 +27,9 @@ public class Switch : MonoBehaviour {
     public void Init(int x, int y, MapGrid mapGrid, TiledSharp.PropertyDict properties, ColorList gridObjectColorList)
     {
         activationId = Tools.IntParseFast(Tools.GetProperty(properties, "activationId"));
+        if (activationId == -1) {
+            Debug.Log(string.Format("{0} is missing its activationId!"), this);
+        }
         spriteRenderer.color = gridObjectColorList.Colors[activationId].color;
         this.mapGrid = mapGrid;
         xPos = x;

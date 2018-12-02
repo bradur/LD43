@@ -18,6 +18,9 @@ public class DoorKey : MonoBehaviour {
 
     public void Init(TiledSharp.PropertyDict properties, ColorList colors) {
         keyId = Tools.IntParseFast(Tools.GetProperty(properties, "keyId"));
+        if (keyId == -1) {
+            Debug.Log(string.Format("{0} is missing its keyId!"), this);
+        }
         pickupObject = GetComponent<PickupObject>();
         ColorListColor color = colors.Colors[keyId];
         spriteRenderer.color = color.color;

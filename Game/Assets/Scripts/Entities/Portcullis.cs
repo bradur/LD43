@@ -31,6 +31,9 @@ public class Portcullis : MonoBehaviour
     public void Init(int x, int y, MapGrid mapGrid, TiledSharp.PropertyDict properties, ColorList gridObjectColorList)
     {
         int activationId = Tools.IntParseFast(Tools.GetProperty(properties, "activationId"));
+        if (activationId == -1) {
+            Debug.Log(string.Format("{0} is missing its activationId!"), this);
+        }
         gridObject = GetComponent<GridObject>();
         this.mapGrid = mapGrid;
         xPos = x;
@@ -56,7 +59,7 @@ public class Portcullis : MonoBehaviour
                 mapGridObject.AnimateAndKill();
             }
         }
-        gridObject.SetCollisionType(switchedOn ? CollisionType.Wall : CollisionType.Floor);
+        gridObject.SetCollisionType(switchedOn ? CollisionType.Wall : CollisionType.None);
         boxCollider2D.enabled = switchedOn;
         spriteRenderer.sprite = switchedOn ? spriteOn : spriteOff;
     }

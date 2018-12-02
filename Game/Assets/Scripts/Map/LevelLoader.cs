@@ -76,7 +76,7 @@ public class LevelLoader : MonoBehaviour
 
     void Start()
     {
-        Init(levelList.Levels[nextLevel]);
+        //Init(levelList.Levels[nextLevel]);
     }
 
     void Update()
@@ -90,10 +90,10 @@ public class LevelLoader : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        //Time.timeScale = 1f;
+        Time.timeScale = 1f;
         if (nextLevel < levelList.Levels.Count)
         {
-            //Init(levelList.Levels[nextLevel]);
+            Init(levelList.Levels[nextLevel]);
         }
         else
         {
@@ -121,7 +121,7 @@ public class LevelLoader : MonoBehaviour
 
     private void Init(TextAsset mapFile)
     {
-        mapGrid.Clear();
+        //mapGrid.Clear();
         GameManager.main.SetMapGrid(mapGrid);
         GameManager.main.SetLevelLoader(this);
         XDocument mapX = XDocument.Parse(mapFile.text);

@@ -20,12 +20,15 @@ public class Door : MonoBehaviour {
 
     public void Init(TiledSharp.PropertyDict properties, ColorList colorList) {
         keyId = Tools.IntParseFast(Tools.GetProperty(properties, "keyId"));
+        if (keyId == -1) {
+            Debug.Log(string.Format("{0} is missing its keyId!"), this);
+        }
         gridObject = GetComponent<GridObject>();
         spriteRenderer.color = colorList.Colors[keyId].color;
     }
 
     public void Unlock() {
-        gridObject.SetCollisionType(CollisionType.Floor);
+        gridObject.SetCollisionType(CollisionType.None);
         spriteRenderer.sprite = spriteUnlocked;
     }
 }

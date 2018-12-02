@@ -84,6 +84,21 @@ public class MapGrid : MonoBehaviour
         return gridObjects;
     }
 
+    public void ActivateAllFloorParticleSystems() {
+        for (int i = 0; i < height; i += 1)
+        {
+            for (int j = 0; j < width; j += 1)
+            {
+                foreach(GridObject gridObject in Get(j, i))
+                {
+                    if (gridObject.CollisionType == CollisionType.Floor) {
+                        gridObject.ActivateParticleSystem();
+                    }
+                }
+            }
+        }
+    }
+
     public bool CanMoveIntoPosition(int x, int y)
     {
         List<GridObject> gridObjects = Get(x, y);
@@ -111,10 +126,10 @@ public class MapGrid : MonoBehaviour
         Get(x, y).Remove(gridObject);
     }
 
-    public void MovingAwayFrom(int x, int y) {
+    public void MovingAwayFrom(PlayerMovement player, int x, int y) {
         foreach (GridObject gridObject in GetCopy(x, y)) {
             if (gridObject.CollisionType == CollisionType.LevelEnd) {
-                gridObject.Interact();
+                gridObject.Interact(player);
             }
         }
     }

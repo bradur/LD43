@@ -30,6 +30,9 @@ public class GridObject : MonoBehaviour
     [SerializeField]
     private bool killable = false;
 
+    [SerializeField]
+    private GameObject gridObjectParticleSystem;
+
     public void Init(int x, int y, MapGrid mapGrid, TiledSharp.PropertyDict properties, ColorList colorList, ColorList characterColorList, ColorList gridObjectColorList)
     {
         animator = GetComponent<Animator>();
@@ -52,19 +55,23 @@ public class GridObject : MonoBehaviour
         }
     }
 
-    public void Interact() {
+    public void Interact(PlayerMovement player) {
 
         foreach(Switch switchObject in GetComponents<Switch>()) {
             switchObject.Activate();
         }
         foreach (LevelEnd endObject in GetComponents<LevelEnd>()) {
-            endObject.Toggle();
+            endObject.Toggle(player);
         }
 
     }
 
     public void SetCollisionType(CollisionType collisionType) {
         this.collisionType = collisionType;
+    }
+
+    public void ActivateParticleSystem() {
+        gridObjectParticleSystem.SetActive(true);
     }
 
     private bool dying = false;
