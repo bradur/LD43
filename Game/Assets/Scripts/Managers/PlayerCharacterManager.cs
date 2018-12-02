@@ -67,6 +67,26 @@ public class PlayerCharacterManager : MonoBehaviour
         }
     }
 
+    private int selectedCharacterId = -1;
+    private void SelectNextCharacter() {
+        bool selectNext = false;
+        bool characterFound = false;
+        foreach(PlayerMovement player in characters) {
+            if (selectNext) {
+                SelectCharacter(player.CharacterId);
+                characterFound = true;
+                break;
+            }
+            if (player.CharacterId == selectedCharacterId) {
+                selectNext = true;
+            }
+        }
+        if (!characterFound && characters.Count > 0) {
+            PlayerMovement player = characters[0];
+            SelectCharacter(player.CharacterId);
+        }
+    }
+
     public PlayerMovement SelectCharacter(int characterId)
     {
         Debug.Log(string.Format("Selecting character #{0}.", characterId));
@@ -78,7 +98,6 @@ public class PlayerCharacterManager : MonoBehaviour
             }
         }
         if (selectThisCharacter != null && !selectThisCharacter.Dying) {
-            SoundManager.main.PlaySound(SoundType.SwitchCharacter);
             foreach (PlayerMovement character in characters)
             {
                 if (character.CharacterId == characterId)
@@ -87,7 +106,11 @@ public class PlayerCharacterManager : MonoBehaviour
                     if (previousCharacterId == -1) {
                         previousCharacterId = characterId;
                     }
+                    if (previousCharacterId != characterId) {
+                        SoundManager.main.PlaySound(SoundType.SwitchCharacter);
+                    }
                     selectedCharacter = character;
+                    selectedCharacterId = characterId;
                     character.Select();
                     virtualCamera.Follow = selectedCharacter.transform;
                 }
@@ -115,7 +138,10 @@ public class PlayerCharacterManager : MonoBehaviour
     private void Update()
     {
         if (allowSwitching) {
-            if (KeyManager.main.GetKeyDown(Action.CharacterOne))
+            if (KeyManager.main.GetKeyDown(Action.SwitchCharacter)) {
+                SelectNextCharacter();
+            }
+            else if (KeyManager.main.GetKeyDown(Action.CharacterOne))
             {
                 SelectCharacter(1);
             }

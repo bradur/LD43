@@ -78,14 +78,9 @@
     <property name="characterId" value="1"/>
    </properties>
   </object>
-  <object id="44" name="P3" type="Player" gid="57" x="320" y="128" width="64" height="64">
+  <object id="50" name="P3" type="Player" gid="57" x="448" y="128" width="64" height="64">
    <properties>
     <property name="characterId" value="3"/>
-   </properties>
-  </object>
-  <object id="50" name="P4" type="Player" gid="57" x="448" y="128" width="64" height="64">
-   <properties>
-    <property name="characterId" value="4"/>
    </properties>
   </object>
  </objectgroup>

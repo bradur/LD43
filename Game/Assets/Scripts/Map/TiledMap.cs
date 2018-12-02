@@ -34,6 +34,7 @@ public class TiledMap : MonoBehaviour
         this.levelLoader = levelLoader;
         this.mapGrid = mapGrid;
         this.gridObjectColorList = gridObjectColorList;
+        Debug.Log(mapGrid);
         this.mapGrid.Initialize(map.Width, map.Height);
         DrawLayers(map);
         SpawnObjects(map);

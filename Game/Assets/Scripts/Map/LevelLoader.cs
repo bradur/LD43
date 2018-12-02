@@ -130,7 +130,7 @@ public class LevelLoader : MonoBehaviour
 
     private void Init(TextAsset mapFile)
     {
-        //mapGrid.Clear();
+        mapGrid.Clear();
         GameManager.main.SetMapGrid(mapGrid);
         GameManager.main.SetLevelLoader(this);
         XDocument mapX = XDocument.Parse(mapFile.text);
