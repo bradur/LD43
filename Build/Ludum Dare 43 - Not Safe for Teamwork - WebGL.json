@@ -1,0 +1,13 @@
+{
+"companyName": "BradurCo",
+"productName": "Not Safe for Teamwork",
+"dataUrl": "Ludum Dare 43 - Not Safe for Teamwork - WebGL.data.unityweb",
+"wasmCodeUrl": "Ludum Dare 43 - Not Safe for Teamwork - WebGL.wasm.code.unityweb",
+"wasmFrameworkUrl": "Ludum Dare 43 - Not Safe for Teamwork - WebGL.wasm.framework.unityweb",
+"TOTAL_MEMORY": 268435456,
+"graphicsAPI": ["WebGL 2.0", "WebGL 1.0"],
+"webglContextAttributes": {"preserveDrawingBuffer": false},
+"splashScreenStyle": "Dark",
+"backgroundColor": "#231F20",
+"cacheControl": {"default": "must-revalidate"}
+}

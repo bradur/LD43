@@ -1,7 +1,7 @@
 # Theme: Sacrifices must be made
 
 ## Title
-Not your average Monday
+Not Safe for Teamwork
 
 ## Gameplay
 Control multiple characters, complete puzzles, reach level end. Sacrifice some characters.
